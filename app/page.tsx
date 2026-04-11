@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useState, useEffect } from "react";
+import { toPng } from "html-to-image";
 
 interface NewsCard {
   id: number;
@@ -152,6 +153,9 @@ export default function Home() {
 }
 
 function Card({ card }: { card: NewsCard }) {
+  const cardRef = useRef<HTMLDivElement>(null);
+  const [saving, setSaving] = useState(false);
+
   const bg = card.isPositive
     ? "linear-gradient(160deg, #0f2027 0%, #1a3a2a 50%, #0d1f16 100%)"
     : "linear-gradient(160deg, #1a0a0a 0%, #2d1515 50%, #110808 100%)";
@@ -160,8 +164,35 @@ function Card({ card }: { card: NewsCard }) {
   const accentBg = card.isPositive ? "rgba(34,197,94,0.12)" : "rgba(239,68,68,0.12)";
   const accentBorder = card.isPositive ? "rgba(34,197,94,0.3)" : "rgba(239,68,68,0.3)";
 
+  const handleSave = async () => {
+    if (!cardRef.current || saving) return;
+    setSaving(true);
+    try {
+      const dataUrl = await toPng(cardRef.current, {
+        pixelRatio: window.devicePixelRatio ?? 2,
+        skipFonts: false,
+      });
+
+      const blob = await (await fetch(dataUrl)).blob();
+      const file = new File([blob], `${card.ticker}-brief.png`, { type: "image/png" });
+
+      if (navigator.canShare?.({ files: [file] })) {
+        await navigator.share({ files: [file], title: `${card.ticker} Stock Brief` });
+      } else {
+        // Desktop fallback
+        const a = document.createElement("a");
+        a.href = dataUrl;
+        a.download = `${card.ticker}-brief.png`;
+        a.click();
+      }
+    } finally {
+      setSaving(false);
+    }
+  };
+
   return (
     <div
+      ref={cardRef}
       className="shrink-0 w-screen h-svh snap-center snap-always flex flex-col"
       style={{ background: bg }}
     >
@@ -287,6 +318,34 @@ function Card({ card }: { card: NewsCard }) {
             </p>
           </div>
         </div>
+
+        {/* Save button */}
+        <button
+          onClick={handleSave}
+          disabled={saving}
+          className="mt-5 w-full flex items-center justify-center gap-2 rounded-2xl py-3.5 transition-opacity active:opacity-60"
+          style={{
+            background: accentBg,
+            border: `1px solid ${accentBorder}`,
+            color: accentColor,
+            opacity: saving ? 0.5 : 1,
+          }}
+        >
+          {saving ? (
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="animate-spin">
+              <path d="M21 12a9 9 0 1 1-6.219-8.56" />
+            </svg>
+          ) : (
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+              <polyline points="7 10 12 15 17 10" />
+              <line x1="12" y1="15" x2="12" y2="3" />
+            </svg>
+          )}
+          <span className="text-sm font-semibold">
+            {saving ? "Saving…" : "Save to Photos"}
+          </span>
+        </button>
       </div>
     </div>
   );
