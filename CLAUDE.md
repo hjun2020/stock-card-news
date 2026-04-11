@@ -48,22 +48,20 @@ The `cards` array at the top of the file holds all card data (`NewsCard` type). 
 │  │  aspect-ratio: 4/5            │  │  ← captured by html-to-image
 │  │  (gradient bg)                │  │  → saved as 1080×1350px PNG
 │  │                               │  │
-│  │  px-7 pt-10 pb-8              │  │
+│  │  px-7 pt-5 pb-5               │  │
 │  │  ┌─────────────────────────┐  │  │
-│  │  │ "Stock Brief"   date    │  │  │  header row
+│  │  │ "{date} 뉴스"  text-lg  │  │  │  header — fixed string, 1 line
 │  │  ├─────────────────────────┤  │  │
-│  │  │ [sector badge]          │  │  │  colored pill
+│  │  │ Headline   text-2xl     │  │  │  Korean: max ~22자/줄, 3줄 이내
+│  │  │            font-bold    │  │  │         → 총 44자 이하 권장
+│  │  │                         │  │  │
 │  │  ├─────────────────────────┤  │  │
-│  │  │ TICKER (text-6xl bold)  │  │  │
-│  │  │ Company name            │  │  │
-│  │  ├── divider ──────────────┤  │  │
-│  │  │ Headline (text-lg bold) │  │  │
+│  │  │ • bullet   text-l       │  │  │  Korean: max ~26자/줄, 2줄 이내
+│  │  │ • bullet   (3 items)    │  │  │         → 총 36자 이하 권장
+│  │  │ • bullet                │  │  │
 │  │  ├─────────────────────────┤  │  │
-│  │  │ • summary point 1       │  │  │  flex-1 (fills remaining)
-│  │  │ • summary point 2       │  │  │
-│  │  │ • summary point 3       │  │  │
-│  │  ├─────────────────────────┤  │  │
-│  │  │ Price     │  Change %   │  │  │  frosted price block
+│  │  │ 주린이를…    text-sm    │  │  │  footer — fixed string
+│  │  │ nextinvest.org text-2xl │  │  │
 │  │  └─────────────────────────┘  │  │
 │  └───────────────────────────────┘  │  ← cardRef ends here
 │                                     │
