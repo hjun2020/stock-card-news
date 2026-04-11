@@ -153,6 +153,7 @@ export default function Home() {
 }
 
 function Card({ card }: { card: NewsCard }) {
+  // cardRef wraps only the 4:5 image content — save button is outside
   const cardRef = useRef<HTMLDivElement>(null);
   const [saving, setSaving] = useState(false);
 
@@ -168,15 +169,15 @@ function Card({ card }: { card: NewsCard }) {
     if (!cardRef.current || saving) return;
     setSaving(true);
     try {
-      const dataUrl = await toPng(cardRef.current, {
-        pixelRatio: window.devicePixelRatio ?? 2,
-        skipFonts: false,
-      });
+      // Scale so output is exactly 1080px wide × 1350px tall (4:5)
+      const pixelRatio = 1080 / cardRef.current.offsetWidth;
+      const dataUrl = await toPng(cardRef.current, { pixelRatio });
 
       const blob = await (await fetch(dataUrl)).blob();
       const file = new File([blob], `${card.ticker}-brief.png`, { type: "image/png" });
 
       if (navigator.canShare?.({ files: [file] })) {
+        // iOS Safari: shows native share sheet → "Save Image" lands in Photos
         await navigator.share({ files: [file], title: `${card.ticker} Stock Brief` });
       } else {
         // Desktop fallback
@@ -191,162 +192,143 @@ function Card({ card }: { card: NewsCard }) {
   };
 
   return (
-    <div
-      ref={cardRef}
-      className="shrink-0 w-screen h-svh snap-center snap-always flex flex-col"
-      style={{ background: bg }}
-    >
-      {/* Noise texture overlay */}
+    // Outer slide: full screen, centers the 4:5 card + button vertically
+    <div className="shrink-0 w-screen h-svh snap-center snap-always flex flex-col items-center justify-center gap-4 bg-black px-0">
+
+      {/* ── 4:5 card (captured area) ── */}
       <div
-        className="absolute inset-0 pointer-events-none opacity-[0.03]"
-        style={{
-          backgroundImage:
-            "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E\")",
-        }}
-      />
-
-      <div className="relative flex flex-col flex-1 px-7 pt-14 pb-12 gap-0">
-        {/* Header row */}
-        <div className="flex items-center justify-between mb-8">
-          <span
-            className="text-xs font-semibold tracking-widest uppercase"
-            style={{ color: "rgba(255,255,255,0.4)" }}
-          >
-            Stock Brief
-          </span>
-          <span
-            className="text-xs font-medium"
-            style={{ color: "rgba(255,255,255,0.35)" }}
-          >
-            {card.date}
-          </span>
-        </div>
-
-        {/* Sector badge */}
-        <div className="mb-5">
-          <span
-            className="text-xs font-semibold tracking-wider uppercase px-3 py-1 rounded-full"
-            style={{
-              background: accentBg,
-              color: accentColor,
-              border: `1px solid ${accentBorder}`,
-            }}
-          >
-            {card.sector}
-          </span>
-        </div>
-
-        {/* Ticker + Company */}
-        <div className="mb-6">
-          <h1
-            className="text-7xl font-black tracking-tighter leading-none mb-2"
-            style={{ color: "#ffffff" }}
-          >
-            {card.ticker}
-          </h1>
-          <p
-            className="text-sm font-medium"
-            style={{ color: "rgba(255,255,255,0.45)" }}
-          >
-            {card.company}
-          </p>
-        </div>
-
-        {/* Divider */}
+        ref={cardRef}
+        className="w-full flex flex-col"
+        style={{ aspectRatio: "4/5", background: bg }}
+      >
+        {/* Noise texture overlay */}
         <div
-          className="w-12 h-px mb-7"
-          style={{ background: "rgba(255,255,255,0.15)" }}
+          className="absolute inset-0 pointer-events-none opacity-[0.03]"
+          style={{
+            backgroundImage:
+              "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E\")",
+          }}
         />
 
-        {/* Headline */}
-        <h2
-          className="text-xl font-bold leading-snug mb-8"
-          style={{ color: "rgba(255,255,255,0.92)" }}
-        >
-          {card.headline}
-        </h2>
+        <div className="relative flex flex-col flex-1 px-7 pt-10 pb-8">
+          {/* Header row */}
+          <div className="flex items-center justify-between mb-5">
+            <span
+              className="text-xs font-semibold tracking-widest uppercase"
+              style={{ color: "rgba(255,255,255,0.4)" }}
+            >
+              Stock Brief
+            </span>
+            <span className="text-xs font-medium" style={{ color: "rgba(255,255,255,0.35)" }}>
+              {card.date}
+            </span>
+          </div>
 
-        {/* Summary bullets */}
-        <div className="flex flex-col gap-3 flex-1">
-          {card.summary.map((point, i) => (
-            <div key={i} className="flex items-start gap-3">
-              <div
-                className="w-1 h-1 rounded-full mt-2 shrink-0"
-                style={{ background: accentColor }}
-              />
-              <p
-                className="text-sm leading-relaxed"
-                style={{ color: "rgba(255,255,255,0.6)" }}
-              >
-                {point}
+          {/* Sector badge */}
+          <div className="mb-4">
+            <span
+              className="text-xs font-semibold tracking-wider uppercase px-3 py-1 rounded-full"
+              style={{ background: accentBg, color: accentColor, border: `1px solid ${accentBorder}` }}
+            >
+              {card.sector}
+            </span>
+          </div>
+
+          {/* Ticker + Company */}
+          <div className="mb-4">
+            <h1
+              className="text-6xl font-black tracking-tighter leading-none mb-1"
+              style={{ color: "#ffffff" }}
+            >
+              {card.ticker}
+            </h1>
+            <p className="text-sm font-medium" style={{ color: "rgba(255,255,255,0.45)" }}>
+              {card.company}
+            </p>
+          </div>
+
+          {/* Divider */}
+          <div className="w-12 h-px mb-4" style={{ background: "rgba(255,255,255,0.15)" }} />
+
+          {/* Headline */}
+          <h2
+            className="text-lg font-bold leading-snug mb-5"
+            style={{ color: "rgba(255,255,255,0.92)" }}
+          >
+            {card.headline}
+          </h2>
+
+          {/* Summary bullets */}
+          <div className="flex flex-col gap-2.5 flex-1">
+            {card.summary.map((point, i) => (
+              <div key={i} className="flex items-start gap-3">
+                <div
+                  className="w-1 h-1 rounded-full mt-2 shrink-0"
+                  style={{ background: accentColor }}
+                />
+                <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.6)" }}>
+                  {point}
+                </p>
+              </div>
+            ))}
+          </div>
+
+          {/* Price block */}
+          <div
+            className="mt-5 rounded-2xl p-4 flex items-center justify-between"
+            style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.08)" }}
+          >
+            <div>
+              <p className="text-xs font-medium mb-1" style={{ color: "rgba(255,255,255,0.35)" }}>
+                Current Price
+              </p>
+              <p className="text-2xl font-bold" style={{ color: "#ffffff" }}>
+                {card.price}
               </p>
             </div>
-          ))}
-        </div>
-
-        {/* Price block */}
-        <div
-          className="mt-8 rounded-2xl p-5 flex items-center justify-between"
-          style={{
-            background: "rgba(255,255,255,0.05)",
-            border: "1px solid rgba(255,255,255,0.08)",
-          }}
-        >
-          <div>
-            <p
-              className="text-xs font-medium mb-1"
-              style={{ color: "rgba(255,255,255,0.35)" }}
-            >
-              Current Price
-            </p>
-            <p className="text-2xl font-bold" style={{ color: "#ffffff" }}>
-              {card.price}
-            </p>
-          </div>
-          <div className="text-right">
-            <p
-              className="text-xs font-medium mb-1"
-              style={{ color: "rgba(255,255,255,0.35)" }}
-            >
-              Today
-            </p>
-            <p className="text-lg font-bold" style={{ color: accentColor }}>
-              {card.changePercent}
-            </p>
-            <p className="text-xs font-medium" style={{ color: "rgba(255,255,255,0.4)" }}>
-              {card.change}
-            </p>
+            <div className="text-right">
+              <p className="text-xs font-medium mb-1" style={{ color: "rgba(255,255,255,0.35)" }}>
+                Today
+              </p>
+              <p className="text-lg font-bold" style={{ color: accentColor }}>
+                {card.changePercent}
+              </p>
+              <p className="text-xs font-medium" style={{ color: "rgba(255,255,255,0.4)" }}>
+                {card.change}
+              </p>
+            </div>
           </div>
         </div>
-
-        {/* Save button */}
-        <button
-          onClick={handleSave}
-          disabled={saving}
-          className="mt-5 w-full flex items-center justify-center gap-2 rounded-2xl py-3.5 transition-opacity active:opacity-60"
-          style={{
-            background: accentBg,
-            border: `1px solid ${accentBorder}`,
-            color: accentColor,
-            opacity: saving ? 0.5 : 1,
-          }}
-        >
-          {saving ? (
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="animate-spin">
-              <path d="M21 12a9 9 0 1 1-6.219-8.56" />
-            </svg>
-          ) : (
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-              <polyline points="7 10 12 15 17 10" />
-              <line x1="12" y1="15" x2="12" y2="3" />
-            </svg>
-          )}
-          <span className="text-sm font-semibold">
-            {saving ? "Saving…" : "Save to Photos"}
-          </span>
-        </button>
       </div>
+
+      {/* ── Save button (outside captured area) ── */}
+      <button
+        onClick={handleSave}
+        disabled={saving}
+        className="w-full flex items-center justify-center gap-2 rounded-2xl py-3.5 px-7 transition-opacity active:opacity-60"
+        style={{
+          background: accentBg,
+          border: `1px solid ${accentBorder}`,
+          color: accentColor,
+          opacity: saving ? 0.5 : 1,
+          maxWidth: "100vw",
+        }}
+      >
+        {saving ? (
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="animate-spin">
+            <path d="M21 12a9 9 0 1 1-6.219-8.56" />
+          </svg>
+        ) : (
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+            <polyline points="7 10 12 15 17 10" />
+            <line x1="12" y1="15" x2="12" y2="3" />
+          </svg>
+        )}
+        <span className="text-sm font-semibold">
+          {saving ? "Saving…" : "Save to Photos"}
+        </span>
+      </button>
     </div>
   );
 }
