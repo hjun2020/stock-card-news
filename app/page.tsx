@@ -1,65 +1,293 @@
-import Image from "next/image";
+"use client";
+
+import { useRef, useState, useEffect } from "react";
+
+interface NewsCard {
+  id: number;
+  ticker: string;
+  company: string;
+  headline: string;
+  summary: string[];
+  price: string;
+  change: string;
+  changePercent: string;
+  isPositive: boolean;
+  sector: string;
+  date: string;
+}
+
+const cards: NewsCard[] = [
+  {
+    id: 1,
+    ticker: "NVDA",
+    company: "NVIDIA Corporation",
+    headline: "NVIDIA Surpasses $3T Market Cap as AI Demand Hits Record Highs",
+    summary: [
+      "Data center revenue up 427% YoY to $22.6B",
+      "H100 GPU demand exceeds supply through 2025",
+      "New Blackwell architecture ships ahead of schedule",
+    ],
+    price: "$875.40",
+    change: "+$34.20",
+    changePercent: "+4.07%",
+    isPositive: true,
+    sector: "Semiconductors",
+    date: "Apr 11, 2026",
+  },
+  {
+    id: 2,
+    ticker: "AAPL",
+    company: "Apple Inc.",
+    headline: "Apple Intelligence Drives Strongest iPhone Upgrade Cycle in 5 Years",
+    summary: [
+      "iPhone 17 sales up 18% vs prior generation launch",
+      "Services revenue hits all-time high at $26.9B",
+      "Vision Pro 2 rumored for Q3 2026 launch",
+    ],
+    price: "$213.55",
+    change: "+$7.80",
+    changePercent: "+3.79%",
+    isPositive: true,
+    sector: "Consumer Technology",
+    date: "Apr 11, 2026",
+  },
+  {
+    id: 3,
+    ticker: "TSLA",
+    company: "Tesla, Inc.",
+    headline: "Tesla Cybertruck Recall Weighs on Delivery Outlook for Q2",
+    summary: [
+      "141,000 Cybertrucks recalled over accelerator defect",
+      "Q2 delivery guidance cut by 8% to ~420K vehicles",
+      "Full Self-Driving v13 rollout delayed to July",
+    ],
+    price: "$168.20",
+    change: "-$11.45",
+    changePercent: "-6.38%",
+    isPositive: false,
+    sector: "Electric Vehicles",
+    date: "Apr 11, 2026",
+  },
+  {
+    id: 4,
+    ticker: "MSFT",
+    company: "Microsoft Corporation",
+    headline: "Azure AI Growth Accelerates to 33% as Copilot Adoption Expands",
+    summary: [
+      "Azure revenue grew 33% driven by AI workloads",
+      "Copilot M365 reaches 400M paid seats globally",
+      "OpenAI partnership extended through 2030",
+    ],
+    price: "$421.10",
+    change: "+$12.35",
+    changePercent: "+3.02%",
+    isPositive: true,
+    sector: "Cloud & Software",
+    date: "Apr 11, 2026",
+  },
+  {
+    id: 5,
+    ticker: "META",
+    company: "Meta Platforms, Inc.",
+    headline: "Meta's Llama 4 Tops Benchmarks, Boosting Ad Revenue Forecast",
+    summary: [
+      "Llama 4 outperforms GPT-4o on 6 of 8 benchmarks",
+      "AI-driven ad targeting lifts CPM rates by 22%",
+      "Ray-Ban smart glasses hit 2M units sold in Q1",
+    ],
+    price: "$512.70",
+    change: "+$18.90",
+    changePercent: "+3.83%",
+    isPositive: true,
+    sector: "Social Media & AI",
+    date: "Apr 11, 2026",
+  },
+];
 
 export default function Home() {
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  useEffect(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+
+    const onScroll = () => {
+      const index = Math.round(el.scrollLeft / el.clientWidth);
+      setActiveIndex(index);
+    };
+
+    el.addEventListener("scroll", onScroll, { passive: true });
+    return () => el.removeEventListener("scroll", onScroll);
+  }, []);
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
+    <div className="relative w-screen h-svh overflow-hidden bg-black">
+      {/* Swipeable cards */}
+      <div
+        ref={scrollRef}
+        className="flex w-full h-full overflow-x-auto snap-x snap-mandatory scrollbar-none"
+        style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+      >
+        {cards.map((card) => (
+          <Card key={card.id} card={card} />
+        ))}
+      </div>
+
+      {/* Dot indicators */}
+      <div className="absolute bottom-8 left-0 right-0 flex justify-center gap-2 pointer-events-none">
+        {cards.map((_, i) => (
+          <div
+            key={i}
+            className="w-1.5 h-1.5 rounded-full transition-all duration-300"
+            style={{
+              background: i === activeIndex ? "#ffffff" : "rgba(255,255,255,0.35)",
+              transform: i === activeIndex ? "scale(1.4)" : "scale(1)",
+            }}
+          />
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function Card({ card }: { card: NewsCard }) {
+  const bg = card.isPositive
+    ? "linear-gradient(160deg, #0f2027 0%, #1a3a2a 50%, #0d1f16 100%)"
+    : "linear-gradient(160deg, #1a0a0a 0%, #2d1515 50%, #110808 100%)";
+
+  const accentColor = card.isPositive ? "#22c55e" : "#ef4444";
+  const accentBg = card.isPositive ? "rgba(34,197,94,0.12)" : "rgba(239,68,68,0.12)";
+  const accentBorder = card.isPositive ? "rgba(34,197,94,0.3)" : "rgba(239,68,68,0.3)";
+
+  return (
+    <div
+      className="shrink-0 w-screen h-svh snap-center snap-always flex flex-col"
+      style={{ background: bg }}
+    >
+      {/* Noise texture overlay */}
+      <div
+        className="absolute inset-0 pointer-events-none opacity-[0.03]"
+        style={{
+          backgroundImage:
+            "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E\")",
+        }}
+      />
+
+      <div className="relative flex flex-col flex-1 px-7 pt-14 pb-12 gap-0">
+        {/* Header row */}
+        <div className="flex items-center justify-between mb-8">
+          <span
+            className="text-xs font-semibold tracking-widest uppercase"
+            style={{ color: "rgba(255,255,255,0.4)" }}
+          >
+            Stock Brief
+          </span>
+          <span
+            className="text-xs font-medium"
+            style={{ color: "rgba(255,255,255,0.35)" }}
+          >
+            {card.date}
+          </span>
+        </div>
+
+        {/* Sector badge */}
+        <div className="mb-5">
+          <span
+            className="text-xs font-semibold tracking-wider uppercase px-3 py-1 rounded-full"
+            style={{
+              background: accentBg,
+              color: accentColor,
+              border: `1px solid ${accentBorder}`,
+            }}
+          >
+            {card.sector}
+          </span>
+        </div>
+
+        {/* Ticker + Company */}
+        <div className="mb-6">
+          <h1
+            className="text-7xl font-black tracking-tighter leading-none mb-2"
+            style={{ color: "#ffffff" }}
+          >
+            {card.ticker}
           </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+          <p
+            className="text-sm font-medium"
+            style={{ color: "rgba(255,255,255,0.45)" }}
+          >
+            {card.company}
           </p>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+
+        {/* Divider */}
+        <div
+          className="w-12 h-px mb-7"
+          style={{ background: "rgba(255,255,255,0.15)" }}
+        />
+
+        {/* Headline */}
+        <h2
+          className="text-xl font-bold leading-snug mb-8"
+          style={{ color: "rgba(255,255,255,0.92)" }}
+        >
+          {card.headline}
+        </h2>
+
+        {/* Summary bullets */}
+        <div className="flex flex-col gap-3 flex-1">
+          {card.summary.map((point, i) => (
+            <div key={i} className="flex items-start gap-3">
+              <div
+                className="w-1 h-1 rounded-full mt-2 shrink-0"
+                style={{ background: accentColor }}
+              />
+              <p
+                className="text-sm leading-relaxed"
+                style={{ color: "rgba(255,255,255,0.6)" }}
+              >
+                {point}
+              </p>
+            </div>
+          ))}
         </div>
-      </main>
+
+        {/* Price block */}
+        <div
+          className="mt-8 rounded-2xl p-5 flex items-center justify-between"
+          style={{
+            background: "rgba(255,255,255,0.05)",
+            border: "1px solid rgba(255,255,255,0.08)",
+          }}
+        >
+          <div>
+            <p
+              className="text-xs font-medium mb-1"
+              style={{ color: "rgba(255,255,255,0.35)" }}
+            >
+              Current Price
+            </p>
+            <p className="text-2xl font-bold" style={{ color: "#ffffff" }}>
+              {card.price}
+            </p>
+          </div>
+          <div className="text-right">
+            <p
+              className="text-xs font-medium mb-1"
+              style={{ color: "rgba(255,255,255,0.35)" }}
+            >
+              Today
+            </p>
+            <p className="text-lg font-bold" style={{ color: accentColor }}>
+              {card.changePercent}
+            </p>
+            <p className="text-xs font-medium" style={{ color: "rgba(255,255,255,0.4)" }}>
+              {card.change}
+            </p>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
