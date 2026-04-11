@@ -70,6 +70,16 @@ The `cards` array at the top of the file holds all card data (`NewsCard` type). 
           • • • • •   dot indicators (absolute, bottom-8)
 ```
 
+#### Content writing rules
+
+Cards are for beginner investors (주린이). Write every field as if explaining to someone with zero finance knowledge:
+
+- **Headline**: State what happened in plain Korean. No jargon. Avoid symbols like %, $, bp standing alone — spell out what they mean or add context (e.g. "금리 4.29%로 여전히 높아" not just "4.29%").
+- **Ticker field**: Use the plain Korean topic name (e.g. "CPI", "비트코인", "주식") not a stock symbol when the card is about a macro theme.
+- **Summary bullets**: Each bullet = one concrete, self-contained fact. Write the implication, not just the number. Bad: "USO -1.93%". Good: "유가 ETF 하루 -1.93% — 에너지주에 부담".
+- **Avoid**: Raw numbers without explanation, finance abbreviations without context (bp, DXY, TIPS, TLT), sentences that assume the reader knows what the metric means.
+- **Tone**: Friendly, matter-of-fact. Like a smart friend explaining the news over coffee.
+
 #### Key constraints
 - **`cardRef` must only wrap the 4:5 content div**, never the save button — the button must not appear in the saved image.
 - On save: `pixelRatio = 1080 / element.offsetWidth` → output is exactly 1080×1350px regardless of device screen size.
