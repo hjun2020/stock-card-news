@@ -212,7 +212,7 @@ function Card({ card }: { card: NewsCard }) {
 
         <div className="relative flex flex-col flex-1 px-7 pt-10 pb-8">
           {/* Header row */}
-          <div className="flex items-center justify-between mb-5">
+          <div className="flex items-center justify-between mb-6">
             <span
               className="text-xs font-semibold tracking-widest uppercase"
               style={{ color: "rgba(255,255,255,0.4)" }}
@@ -225,7 +225,7 @@ function Card({ card }: { card: NewsCard }) {
           </div>
 
           {/* Sector badge */}
-          <div className="mb-4">
+          <div className="mb-6">
             <span
               className="text-xs font-semibold tracking-wider uppercase px-3 py-1 rounded-full"
               style={{ background: accentBg, color: accentColor, border: `1px solid ${accentBorder}` }}
@@ -234,69 +234,27 @@ function Card({ card }: { card: NewsCard }) {
             </span>
           </div>
 
-          {/* Ticker + Company */}
-          <div className="mb-4">
-            <h1
-              className="text-6xl font-black tracking-tighter leading-none mb-1"
-              style={{ color: "#ffffff" }}
-            >
-              {card.ticker}
-            </h1>
-            <p className="text-sm font-medium" style={{ color: "rgba(255,255,255,0.45)" }}>
-              {card.company}
-            </p>
-          </div>
-
-          {/* Divider */}
-          <div className="w-12 h-px mb-4" style={{ background: "rgba(255,255,255,0.15)" }} />
-
           {/* Headline */}
           <h2
-            className="text-lg font-bold leading-snug mb-5"
-            style={{ color: "rgba(255,255,255,0.92)" }}
+            className="text-2xl font-bold leading-snug mb-8"
+            style={{ color: "rgba(255,255,255,0.95)" }}
           >
             {card.headline}
           </h2>
 
           {/* Summary bullets */}
-          <div className="flex flex-col gap-2.5 flex-1">
+          <div className="flex flex-col gap-5 flex-1">
             {card.summary.map((point, i) => (
               <div key={i} className="flex items-start gap-3">
                 <div
-                  className="w-1 h-1 rounded-full mt-2 shrink-0"
+                  className="w-1.5 h-1.5 rounded-full mt-2 shrink-0"
                   style={{ background: accentColor }}
                 />
-                <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.6)" }}>
+                <p className="text-base leading-relaxed" style={{ color: "rgba(255,255,255,0.75)" }}>
                   {point}
                 </p>
               </div>
             ))}
-          </div>
-
-          {/* Price block */}
-          <div
-            className="mt-5 rounded-2xl p-4 flex items-center justify-between"
-            style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.08)" }}
-          >
-            <div>
-              <p className="text-xs font-medium mb-1" style={{ color: "rgba(255,255,255,0.35)" }}>
-                Current Price
-              </p>
-              <p className="text-2xl font-bold" style={{ color: "#ffffff" }}>
-                {card.price}
-              </p>
-            </div>
-            <div className="text-right">
-              <p className="text-xs font-medium mb-1" style={{ color: "rgba(255,255,255,0.35)" }}>
-                Today
-              </p>
-              <p className="text-lg font-bold" style={{ color: accentColor }}>
-                {card.changePercent}
-              </p>
-              <p className="text-xs font-medium" style={{ color: "rgba(255,255,255,0.4)" }}>
-                {card.change}
-              </p>
-            </div>
           </div>
         </div>
       </div>
