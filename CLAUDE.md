@@ -22,15 +22,24 @@ npm run lint     # Run ESLint
 - **TypeScript 5**
 - **Tailwind CSS v4** via `@tailwindcss/postcss`
 - **Recharts** for charting
+- **html-to-image** for DOM-to-PNG capture
 - **ESLint 9** with flat config (`eslint.config.mjs`)
 
 ## Architecture
 
-This is an early-stage Next.js App Router project. All routes live under `app/`:
+Stock news card generator for Instagram. Cards are designed to be saved as 1080×1350px (4:5) images and uploaded as Instagram posts/reels slides.
 
-- `app/layout.tsx` — root layout with Geist font variables and full-height flex body
-- `app/page.tsx` — home page (currently scaffold)
-- `app/globals.css` — global styles (Tailwind base)
+- `app/layout.tsx` — root layout with Geist font variables; `overflow-hidden` for full-screen card view
+- `app/page.tsx` — swipeable card feed (CSS scroll snap, horizontal); contains `Home` (scroll container + dot indicators) and `Card` (individual card)
+- `app/globals.css` — Tailwind v4 base styles
+
+### Card component (`app/page.tsx`)
+
+- The `cards` array at the top of the file holds all card data (`NewsCard` type). Edit this to change content.
+- Each slide is `100vw × 100svh` for snap scrolling. Inside it, the card itself is `width: 100%, aspect-ratio: 4/5` — this is the only element wrapped in `cardRef`.
+- **`cardRef` must only wrap the 4:5 content div**, never the save button, so the button is excluded from the saved image.
+- On save: `pixelRatio = 1080 / element.offsetWidth` → output is exactly 1080×1350px regardless of device screen size.
+- Save uses `navigator.share({ files })` on iOS Safari (lands in Photos), falls back to `<a download>` on desktop.
 
 ## Next.js 16 Key Changes
 
