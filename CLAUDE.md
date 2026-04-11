@@ -50,7 +50,7 @@ The `cards` array at the top of the file holds all card data (`NewsCard` type). 
 │  │                               │  │
 │  │  px-7 pt-5 pb-5               │  │
 │  │  ┌─────────────────────────┐  │  │
-│  │  │ "{date} 뉴스"  text-lg  │  │  │  header — fixed string, 1 line
+│  │  │ "{date} {theme}" text-lg  │  │  │  header — 1 line, date + theme
 │  │  ├─────────────────────────┤  │  │
 │  │  │ Headline   text-2xl     │  │  │  Korean: max ~22자/줄, 3줄 이내
 │  │  │            font-bold    │  │  │         → 총 44자 이하 권장
@@ -74,6 +74,7 @@ The `cards` array at the top of the file holds all card data (`NewsCard` type). 
 
 Cards are for beginner investors (주린이). Write every field as if explaining to someone with zero finance knowledge:
 
+- **Theme** (`theme` field): Short label shown in the header next to the date. Describes what kind of card this is. Examples: `오늘 미국 증시 요약`, `눈에 띄는 종목`, `금리·채권 동향`, `암호화폐 동향`, `원자재 동향`, `오늘 시장 총정리`. Keep under 12자.
 - **Headline**: State what happened in plain Korean. No jargon. Avoid symbols like %, $, bp standing alone — spell out what they mean or add context (e.g. "금리 4.29%로 여전히 높아" not just "4.29%").
 - **Ticker field**: Use the plain Korean topic name (e.g. "CPI", "비트코인", "주식") not a stock symbol when the card is about a macro theme.
 - **Summary bullets**: Each bullet = one concrete, self-contained fact. Write the implication, not just the number. Bad: "USO -1.93%". Good: "유가 ETF 하루 -1.93% — 에너지주에 부담".

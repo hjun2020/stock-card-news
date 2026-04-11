@@ -15,6 +15,7 @@ interface NewsCard {
   isPositive: boolean;
   sector: string;
   date: string;
+  theme: string;
 }
 
 const cards: NewsCard[] = [
@@ -34,6 +35,7 @@ const cards: NewsCard[] = [
     isPositive: false,
     sector: "채권·금리",
     date: "4월 7일",
+    theme: "금리·채권 동향",
   },
   {
     id: 2,
@@ -51,6 +53,7 @@ const cards: NewsCard[] = [
     isPositive: false,
     sector: "원자재·에너지",
     date: "4월 7일",
+    theme: "원자재 동향",
   },
   {
     id: 3,
@@ -68,6 +71,7 @@ const cards: NewsCard[] = [
     isPositive: false,
     sector: "미국 증시",
     date: "4월 7일",
+    theme: "오늘 미국 증시 요약",
   },
   {
     id: 4,
@@ -85,6 +89,7 @@ const cards: NewsCard[] = [
     isPositive: true,
     sector: "암호화폐",
     date: "4월 7일",
+    theme: "암호화폐 동향",
   },
   {
     id: 5,
@@ -102,6 +107,7 @@ const cards: NewsCard[] = [
     isPositive: true,
     sector: "시장 인사이트",
     date: "4월 7일",
+    theme: "오늘 시장 총정리",
   },
 ];
 
@@ -217,7 +223,7 @@ function Card({ card }: { card: NewsCard }) {
               className="text-lg font-semibold"
               style={{ color: "rgba(255,255,255,0.4)" }}
             >
-              {card.date} 뉴스
+              {card.date} {card.theme}
             </span>
           </div>
 
