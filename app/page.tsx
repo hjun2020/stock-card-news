@@ -224,16 +224,6 @@ function Card({ card }: { card: NewsCard }) {
             </span>
           </div>
 
-          {/* Sector badge */}
-          <div className="mb-6">
-            <span
-              className="text-xs font-semibold tracking-wider uppercase px-3 py-1 rounded-full"
-              style={{ background: accentBg, color: accentColor, border: `1px solid ${accentBorder}` }}
-            >
-              {card.sector}
-            </span>
-          </div>
-
           {/* Headline */}
           <h2
             className="text-2xl font-bold leading-snug mb-8"
