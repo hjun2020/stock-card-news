@@ -20,88 +20,88 @@ interface NewsCard {
 const cards: NewsCard[] = [
   {
     id: 1,
-    ticker: "GEV",
-    company: "GE Vernova",
-    headline: "전력·원전·AI 인프라 '3박자' 갖춘 GEV, 52주 신고가 재경신",
+    ticker: "CPI",
+    company: "인플레이션",
+    headline: "3월 CPI 예상 초과, 금리 인하 기대 후퇴",
     summary: [
-      "2028년 매출 목표 520억 달러로 대폭 상향 (기존 450억 달러)",
-      "AI 데이터센터·전기화 수요 폭증, '그림자 인프라' 대표주로 부상",
-      "1년 수익률 3배↑ — 단기 급등이 아닌 구조적 재평가",
+      "에너지·휘발유 급등이 물가 끌어올려",
+      "연준 금리 인하 횟수 기대 줄어드는 분위기",
+      "10년 국채 금리 4.29%, 고점 수준 유지",
     ],
-    price: "$385.20",
-    change: "+$18.40",
-    changePercent: "+5.02%",
-    isPositive: true,
-    sector: "전력 인프라",
-    date: "Apr 12, 2026",
+    price: "4.29%",
+    change: "-0.04%",
+    changePercent: "-0.92%",
+    isPositive: false,
+    sector: "인플레이션",
+    date: "4월 10일",
   },
   {
     id: 2,
-    ticker: "INTC",
-    company: "Intel Corporation",
-    headline: "AI 인프라 재평가 바람 탄 인텔, 52주 신고가로 화려한 귀환",
+    ticker: "금리",
+    company: "수익률곡선",
+    headline: "장단기 금리차 +51bp, 역전 해소 진행 중",
     summary: [
-      "구글·테슬라 등 AI 인프라·자율주행 협력 확대 보도",
-      "미국·유럽 파운드리 정부 지원·수주 계약 논의 가속",
-      "목표주가 60달러↑ 상향, 주간 수익률 20%·연간 100% 돌파",
+      "10Y-2Y 스프레드 정상화 — 침체 공포 완화",
+      "하지만 인플레 장기화 우려는 여전히 잔존",
+      "TLT 90일 -0.54%, 고금리 장기화 시사",
     ],
-    price: "$47.85",
-    change: "+$4.32",
-    changePercent: "+9.93%",
+    price: "+51bp",
+    change: "+2bp",
+    changePercent: "+2.00%",
     isPositive: true,
-    sector: "반도체·파운드리",
-    date: "Apr 12, 2026",
+    sector: "채권·금리",
+    date: "4월 10일",
   },
   {
     id: 3,
-    ticker: "KLAC",
-    company: "KLA Corporation",
-    headline: "반도체 장비 최강자 KLA, AI 투자 붐 타고 사상 최고가 경신",
+    ticker: "주식",
+    company: "미국 증시",
+    headline: "S&P·다우 약세, 나스닥만 살아남은 혼조장",
     summary: [
-      "AI 서버·HBM·첨단 로직 공정 확대로 검사·계측 수요 급증",
-      "2026 회계연도 2Q 실적·가이던스 시장 기대 부합",
-      "52주 저점 대비 2배↑ 후에도 신고가 행진 — 구조적 성장주 재인식",
+      "SPY -0.12%, DIA -0.55%, QQQ +0.14%",
+      "인플레에도 AI·기술 성장 스토리 건재",
+      "주간 기준 S&P +3.55%, QQQ +4.46%",
     ],
-    price: "$853.40",
-    change: "+$42.10",
-    changePercent: "+5.19%",
-    isPositive: true,
-    sector: "반도체 장비",
-    date: "Apr 12, 2026",
+    price: "679.10",
+    change: "-0.82",
+    changePercent: "-0.12%",
+    isPositive: false,
+    sector: "미국 증시",
+    date: "4월 10일",
   },
   {
     id: 4,
-    ticker: "GEN",
-    company: "Gen Digital",
-    headline: "노턴·아바스트 모기업 젠디지털, AI 소외 속 52주 최저가",
+    ticker: "BTC",
+    company: "비트코인",
+    headline: "인플레 공포 속 BTC 7.3만달러 강세 마감",
     summary: [
-      "소비자 보안 구독 모델, AI 대체 우려로 성장 프리미엄 소멸",
-      "머니라이온 인수 후 통합 비용·부담 지속, 포트폴리오 확장 의문",
-      "30·90일 두 자릿수 하락 — 단순 조정 아닌 구조적 소외 신호",
+      "BTC +2.00% → $73,235, 주간 +9.38%",
+      "전통 자산 불안에 '디지털 금' 수요 유입",
+      "90일 -19%: 변동성 크고 레버리지 주의",
     ],
-    price: "$18.75",
-    change: "-$1.20",
-    changePercent: "-6.02%",
-    isPositive: false,
-    sector: "사이버보안",
-    date: "Apr 12, 2026",
+    price: "$73,235",
+    change: "+$1,435",
+    changePercent: "+2.00%",
+    isPositive: true,
+    sector: "암호화폐",
+    date: "4월 10일",
   },
   {
     id: 5,
-    ticker: "INTU",
-    company: "Intuit Inc.",
-    headline: "터보택스·퀵북스 흔드는 AI 공포… 인튜잇 5년래 최저가",
+    ticker: "유가",
+    company: "원자재·달러",
+    headline: "유가 하락·달러 소폭 강세, 금·은은 조정",
     summary: [
-      "생성형 AI의 세무·회계 자동화, 핵심 수익 모델 직접 위협",
-      "실적은 기대치 상회했지만 미래 가격결정력에 투자자 의구심",
-      "고점 대비 50%↓ — '좋은 실적'만으론 무너진 스토리를 못 막는다",
+      "USO 하루 -1.93%, 7일 -9.72% 급락",
+      "DXY +0.18%, 미·이란 휴전 관망세 반영",
+      "GLD 30일 -8.32%, 금·은 되돌림 구간",
     ],
-    price: "$341.20",
-    change: "-$18.90",
-    changePercent: "-5.25%",
+    price: "124.51",
+    change: "-2.45",
+    changePercent: "-1.93%",
     isPositive: false,
-    sector: "핀테크·SaaS",
-    date: "Apr 12, 2026",
+    sector: "원자재",
+    date: "4월 10일",
   },
 ];
 
@@ -210,17 +210,14 @@ function Card({ card }: { card: NewsCard }) {
           }}
         />
 
-        <div className="relative flex flex-col flex-1 px-7 pt-10 pb-8">
+        <div className="relative flex flex-col flex-1 px-7 pt-5 pb-5">
           {/* Header row */}
-          <div className="flex items-center justify-between mb-6">
+          <div className="mb-6">
             <span
-              className="text-xs font-semibold tracking-widest uppercase"
+              className="text-lg font-semibold"
               style={{ color: "rgba(255,255,255,0.4)" }}
             >
-              Stock Brief
-            </span>
-            <span className="text-xs font-medium" style={{ color: "rgba(255,255,255,0.35)" }}>
-              {card.date}
+              {card.date} 뉴스
             </span>
           </div>
 
@@ -240,11 +237,21 @@ function Card({ card }: { card: NewsCard }) {
                   className="w-1.5 h-1.5 rounded-full mt-2 shrink-0"
                   style={{ background: accentColor }}
                 />
-                <p className="text-base leading-relaxed" style={{ color: "rgba(255,255,255,0.75)" }}>
+                <p className="text-l leading-relaxed" style={{ color: "rgba(255,255,255,0.75)" }}>
                   {point}
                 </p>
               </div>
             ))}
+          </div>
+
+          {/* Footer */}
+          <div className="mt-5 flex flex-col items-center">
+            <p className="text-sm" style={{ color: "rgba(255, 255, 255, 0.89)" }}>
+              주린이를 위한 초보주식사이트
+            </p>
+            <p className="text-2xl font-bold" style={{ color: "rgba(248, 244, 244, 1)" }}>
+              nextinvest.org
+            </p>
           </div>
         </div>
       </div>
