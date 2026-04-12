@@ -13,6 +13,14 @@ interface Chain {
 
 const chains: Chain[] = [
   {
+    slug: "apr-12-52w",
+    date: "2026년 4월 12일",
+    label: "52주 극단 종목 분석",
+    description: "신고가 GEV·INTC·KLA vs 신저가 INTU·GEN",
+    cardCount: 7,
+    isPositive: true,
+  },
+  {
     slug: "apr-12-kakao",
     date: "2026년 4월 12일",
     label: "주간 시장 총정리 (카카오)",
