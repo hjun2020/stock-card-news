@@ -51,6 +51,10 @@ Each platform has two paired files:
 - `card-templates/[platform].md` — visual layout, content rules, character limits, technical constraints
 - `components/[ComponentName].tsx` — the React component that implements those specs; accepts `cards: NewsCard[]`
 
+**These two files are always kept in sync.** Any change to one requires a matching update to the other — no exceptions:
+- Edit the component (new field, layout change, style tweak)? → Update the spec to reflect the new DOM structure, type signature, gradients, font sizes, and rules.
+- Edit the spec (new rule, revised character limit, changed layout)? → Update the component to implement it.
+
 Read the spec file before editing a component or writing card content.
 
 | Spec | Component | Platform | Size | Cards | Status |
