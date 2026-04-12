@@ -41,7 +41,7 @@ Reels viewers swipe fast. Each card must land its point before the viewer swipes
 │  │  │                         │  │  │
 │  │  │  ─── accent divider ─── │  │  │
 │  │  │                         │  │  │
-│  │  │  • bullet  text-lg      │  │  │  exactly 2 bullets
+│  │  │  • bullet  text-xl      │  │  │  exactly 2 bullets
 │  │  │  • bullet               │  │  │  each ≤ 20자, single line
 │  │  ├─────────────────────────┤  │  │
 │  │  │ 주린이를…    text-xs    │  │  │  footer — small, low contrast

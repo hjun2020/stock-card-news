@@ -158,7 +158,7 @@ function ReelsCard({ card }: { card: ReelsNewsCard }) {
               {card.bullets.map((b, i) => (
                 <div key={i} className="flex items-center gap-3">
                   <div className="w-1 h-1 rounded-full shrink-0" style={{ background: accentColor }} />
-                  <p className="text-lg font-medium" style={{ color: "rgba(255,255,255,0.65)" }}>
+                  <p className="text-xl font-medium" style={{ color: "rgba(255,255,255,0.88)" }}>
                     {b}
                   </p>
                 </div>
