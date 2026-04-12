@@ -39,23 +39,29 @@ Stock news card generator. Cards are captured as PNG images and shared to social
 - `app/page.tsx` — **main listing page**; shows all card news chains; each chain links to its sub-route
 - `app/[slug]/page.tsx` — swipeable card feed for a specific chain (e.g. `app/apr-12/page.tsx`)
 - `app/globals.css` — Tailwind v4 base styles
+- `components/` — **one React component per card template** (see index below)
 - `card-templates/` — **styling & content specs per platform** (see index below)
 
 ---
 
 ## Card templates
 
-Each file documents the visual layout, content rules, and technical constraints for one target platform. Read the relevant template before writing card content or building a new card style.
+Each platform has two paired files:
 
-| File | Platform | Size | Status |
-|------|----------|------|--------|
-| [instagram-reels.md](card-templates/instagram-reels.md) | Instagram posts / reels slides | 1080×1350 (4:5) | ✅ Live |
-| `twitter.md` | Twitter / X | 1200×675 (16:9) | 🔲 Planned |
-| `threads.md` | Threads | 1080×1080 (1:1) | 🔲 Planned |
-| `facebook.md` | Facebook feed | 1200×630 (1.91:1) | 🔲 Planned |
-| `kakaotalk.md` | KakaoTalk share | 800×400 (2:1) | 🔲 Planned |
+- `card-templates/[platform].md` — visual layout, content rules, character limits, technical constraints
+- `components/[ComponentName].tsx` — the React component that implements those specs; accepts `cards: NewsCard[]`
 
-When building a new card style, create `card-templates/[platform].md` first to agree on layout and constraints before writing any code.
+Read the spec file before editing a component or writing card content.
+
+| Spec | Component | Platform | Size | Status |
+|------|-----------|----------|------|--------|
+| [instagram-reels.md](card-templates/instagram-reels.md) | `InstagramReelsFeed` | Instagram posts / reels slides | 1080×1350 (4:5) | ✅ Live |
+| `twitter.md` | `TwitterCardFeed` | Twitter / X | 1200×675 (16:9) | 🔲 Planned |
+| `threads.md` | `ThreadsCardFeed` | Threads | 1080×1080 (1:1) | 🔲 Planned |
+| `facebook.md` | `FacebookCardFeed` | Facebook feed | 1200×630 (1.91:1) | 🔲 Planned |
+| `kakaotalk.md` | `KakaoTalkCardFeed` | KakaoTalk share | 800×400 (2:1) | 🔲 Planned |
+
+When building a new card style: (1) create the spec in `card-templates/`, (2) build the component in `components/`, (3) add a row to this table.
 
 ---
 
@@ -65,9 +71,22 @@ When asked to create news cards from an article, do **both** steps:
 
 **Step 1 — Create the card feed page**
 
-Copy the most recent `app/[slug]/page.tsx` to a new route, e.g. `app/apr-19/page.tsx`. Use `mmm-dd` as the slug (e.g. `apr-19`, `may-05`). Replace the `cards` array with the new content. Keep the component structure identical — only the data changes.
+Create `app/[slug]/page.tsx` (e.g. `app/apr-19/page.tsx`) using this minimal pattern:
 
-Refer to the target platform's template in `card-templates/` for content rules and character limits.
+```tsx
+"use client";
+import InstagramReelsFeed, { NewsCard } from "@/components/InstagramReelsFeed";
+
+const cards: NewsCard[] = [ /* card data here */ ];
+
+export default function Apr19Page() {
+  return <InstagramReelsFeed cards={cards} />;
+}
+```
+
+Use `mmm-dd` as the slug (e.g. `apr-19`, `may-05`). The page is data only — all rendering logic lives in the component.
+
+Refer to [card-templates/instagram-reels.md](card-templates/instagram-reels.md) for content rules and character limits.
 
 **Step 2 — Register the chain in the listing page**
 
