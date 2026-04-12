@@ -13,6 +13,14 @@ interface Chain {
 
 const chains: Chain[] = [
   {
+    slug: "apr-12-kakao",
+    date: "2026년 4월 12일",
+    label: "주간 시장 총정리 (카카오)",
+    description: "전쟁 공포 완화 → 위험자산 안도 랠리 — 카카오톡용 4장",
+    cardCount: 4,
+    isPositive: true,
+  },
+  {
     slug: "apr-12",
     date: "2026년 4월 12일",
     label: "주간 시장 총정리",
