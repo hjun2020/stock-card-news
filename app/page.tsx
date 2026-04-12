@@ -13,6 +13,14 @@ interface Chain {
 
 const chains: Chain[] = [
   {
+    slug: "apr-13-kakao",
+    date: "2026년 4월 13일",
+    label: "주간 섹터 총정리 (카카오)",
+    description: "유가 폭락이 판을 바꿨다 — 리츠·반도체 급등, 에너지 급락",
+    cardCount: 4,
+    isPositive: true,
+  },
+  {
     slug: "apr-13",
     date: "2026년 4월 13일",
     label: "주간 섹터 총정리",
