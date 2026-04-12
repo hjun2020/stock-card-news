@@ -122,9 +122,12 @@ interface ReelsNewsCard {
 ## Content writing rules
 
 ### Title card
-- **title**: 2–3 short lines. Write like a hook — make the viewer *have to* swipe. Use contrast, tension, or surprise. Good: `"물가 쇼크\n비트코인만\n올랐다"`. Bad: `"4월 10일 미국 시장 요약"`.
-- **label**: Specific topic descriptor, not a generic platform label. Good: `"미국 주요주식 52주 신고가·신저가"`. Bad: `"미국 시장"`.
-- **subtitle**: One line that names what's inside, not what happened. Good: `"4월 10일 미국 시장 완전 정리"`.
+
+**A first-time viewer must be able to tell, within 2 seconds, exactly what this Reels is about.** The `label` + `subtitle` together carry that clarity; the `title` provides the emotional hook that makes them stay.
+
+- **label**: Specific topic descriptor shown in the badge. A stranger who has never seen this account must understand the subject from this alone. Good: `"미국 주요주식 52주 신고가·신저가"`. Bad: `"미국 시장"` (too vague — about what?).
+- **subtitle**: One line that names what's inside, not what happened. Complements the label with date/scope context. Good: `"4월 10일 미국 시장 완전 정리"`.
+- **title**: 2–3 short lines. Write like a hook — make the viewer *have to* swipe. Use contrast, tension, or surprise. The hook works *because* the label already told them what this is; now make them curious about the answer. Good: `"물가 쇼크\n비트코인만\n올랐다"`. Bad: `"4월 10일 미국 시장 요약"` (no tension).
 
 ### Content cards
 - **Headline**: Up to 3 lines. For company-specific cards, **lead with the full company name on the first line**, then deliver the message on lines 2–3. Max ~20자/줄. Example: `"인튜잇\n실적은 좋았는데\n주가는 반토막"`. For thematic/summary cards with no single company, 2 lines is fine.
