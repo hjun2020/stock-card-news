@@ -30,12 +30,38 @@ npm run lint     # Run ESLint
 Stock news card generator for Instagram. Cards are designed to be saved as 1080×1350px (4:5) images and uploaded as Instagram posts/reels slides.
 
 - `app/layout.tsx` — root layout with Geist font variables; `overflow-hidden` for full-screen card view
-- `app/page.tsx` — swipeable card feed (CSS scroll snap, horizontal); contains `Home` (scroll container + dot indicators) and `Card` (individual card)
+- `app/page.tsx` — **main listing page**; shows all card news chains; each chain links to its sub-route
+- `app/[slug]/page.tsx` — swipeable card feed for a specific chain (e.g. `app/apr-12/page.tsx`)
 - `app/globals.css` — Tailwind v4 base styles
 
-### Card component (`app/page.tsx`)
+### Adding a new card news chain
 
-The `cards` array at the top of the file holds all card data (`NewsCard` type). Edit this to change content.
+When asked to create news cards from an article, do **both** steps:
+
+**Step 1 — Create the card feed page**
+
+Copy the most recent `app/[slug]/page.tsx` to a new route, e.g. `app/apr-19/page.tsx`. Use `mmm-dd` as the slug (e.g. `apr-19`, `may-05`). Replace the `cards` array with the new content. Keep the `Home`/`Card` component structure identical — only the data changes.
+
+**Step 2 — Register the chain in the listing page**
+
+Add an entry to the `chains` array at the top of `app/page.tsx`:
+
+```ts
+{
+  slug: "apr-19",          // matches the folder name
+  date: "2026년 4월 19일", // full Korean date
+  label: "주간 시장 총정리", // short chain title (≤ 12자)
+  description: "한 줄 요약 — 이번 주 핵심 메시지", // one-line hook shown in the list
+  cardCount: 7,            // number of cards in this chain
+  isPositive: true,        // true = green accent, false = red
+}
+```
+
+Prepend new chains at the top of the array so the most recent appears first.
+
+### Card component (`app/[slug]/page.tsx`)
+
+The `cards` array at the top of each chain page holds all card data (`NewsCard` type). Edit this to change content.
 
 #### DOM structure per slide
 
