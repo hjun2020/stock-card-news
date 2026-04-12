@@ -3,14 +3,16 @@
 **Platform:** KakaoTalk open chat (오픈채팅)
 **Output size:** 1080 × 1350 px (4:5 portrait) — same capture pipeline as Instagram Reels
 **Component:** `components/KakaoTalkCardFeed`
-**Cards per chain:** 4 (each card covers a broader topic grouping than Reels)
+**Cards per chain:** maximum 4 (each card covers a broader topic grouping than Reels; use fewer if the article doesn't cover all topics)
 
 ---
 
-## Card grouping pattern (weekly article → 4 cards)
+## Card grouping pattern (weekly article → up to 4 cards)
 
-| Card | Topics | `isPositive` |
-|------|--------|--------------|
+Group related topics together so each card stays focused. A full weekly macro article typically yields 4 cards, but shorter or narrower articles may need only 2–3.
+
+| Card | Typical topics | `isPositive` |
+|------|----------------|--------------|
 | 1 | 주식 — 미국 증시 + 글로벌 합산 | overall market direction |
 | 2 | 금리 + 달러 | bond/fx direction |
 | 3 | 원자재 + 암호화폐 | commodity/crypto direction |
