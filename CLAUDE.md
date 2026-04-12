@@ -53,13 +53,13 @@ Each platform has two paired files:
 
 Read the spec file before editing a component or writing card content.
 
-| Spec | Component | Platform | Size | Status |
-|------|-----------|----------|------|--------|
-| [instagram-reels.md](card-templates/instagram-reels.md) | `InstagramReelsFeed` | Instagram posts / reels slides | 1080×1350 (4:5) | ✅ Live |
-| `twitter.md` | `TwitterCardFeed` | Twitter / X | 1200×675 (16:9) | 🔲 Planned |
-| `threads.md` | `ThreadsCardFeed` | Threads | 1080×1080 (1:1) | 🔲 Planned |
-| `facebook.md` | `FacebookCardFeed` | Facebook feed | 1200×630 (1.91:1) | 🔲 Planned |
-| `kakaotalk.md` | `KakaoTalkCardFeed` | KakaoTalk share | 800×400 (2:1) | 🔲 Planned |
+| Spec | Component | Platform | Size | Cards | Status |
+|------|-----------|----------|------|-------|--------|
+| [instagram-reels.md](card-templates/instagram-reels.md) | `InstagramReelsFeed` | Instagram posts / reels slides | 1080×1350 (4:5) | 7 (one topic each) | ✅ Live |
+| [kakaotalk.md](card-templates/kakaotalk.md) | `KakaoTalkCardFeed` | KakaoTalk open chat | 1080×1350 (4:5) | 4 (grouped topics, more text) | ✅ Live |
+| `twitter.md` | `TwitterCardFeed` | Twitter / X | 1200×675 (16:9) | — | 🔲 Planned |
+| `threads.md` | `ThreadsCardFeed` | Threads | 1080×1080 (1:1) | — | 🔲 Planned |
+| `facebook.md` | `FacebookCardFeed` | Facebook feed | 1200×630 (1.91:1) | — | 🔲 Planned |
 
 When building a new card style: (1) create the spec in `card-templates/`, (2) build the component in `components/`, (3) add a row to this table.
 
@@ -71,22 +71,33 @@ When asked to create news cards from an article, do **both** steps:
 
 **Step 1 — Create the card feed page**
 
-Create `app/[slug]/page.tsx` (e.g. `app/apr-19/page.tsx`) using this minimal pattern:
+Create `app/[slug]/page.tsx`. The slug encodes both date and platform, e.g. `apr-19` (Instagram) or `apr-19-kakao` (KakaoTalk). The page is data only — all rendering logic lives in the component.
 
+**Instagram Reels** (7 cards, one topic each):
 ```tsx
 "use client";
 import InstagramReelsFeed, { NewsCard } from "@/components/InstagramReelsFeed";
 
-const cards: NewsCard[] = [ /* card data here */ ];
+const cards: NewsCard[] = [ /* 7 cards */ ];
 
-export default function Apr19Page() {
+export default function Page() {
   return <InstagramReelsFeed cards={cards} />;
 }
 ```
+→ See [card-templates/instagram-reels.md](card-templates/instagram-reels.md) for content rules.
 
-Use `mmm-dd` as the slug (e.g. `apr-19`, `may-05`). The page is data only — all rendering logic lives in the component.
+**KakaoTalk Open Chat** (4 cards, grouped topics, more text):
+```tsx
+"use client";
+import KakaoTalkCardFeed, { KakaoNewsCard } from "@/components/KakaoTalkCardFeed";
 
-Refer to [card-templates/instagram-reels.md](card-templates/instagram-reels.md) for content rules and character limits.
+const cards: KakaoNewsCard[] = [ /* 4 cards */ ];
+
+export default function Page() {
+  return <KakaoTalkCardFeed cards={cards} />;
+}
+```
+→ See [card-templates/kakaotalk.md](card-templates/kakaotalk.md) for grouping pattern and content rules.
 
 **Step 2 — Register the chain in the listing page**
 
