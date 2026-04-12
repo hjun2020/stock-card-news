@@ -37,14 +37,12 @@ Reels viewers swipe fast. Every card must land before they swipe away.
 │  │  │                         │  │  │
 │  │  │  radial glow (bg)       │  │  │  subtle accent glow behind title
 │  │  │                         │  │  │
-│  │  │  [{label} badge]        │  │  │  topic pill — tells reader what this is
-│  │  │                         │  │  │
-│  │  │  Title  clamp(2.8rem    │  │  │  hook; font-black, letter-spacing tight
-│  │  │         –4.2rem)        │  │  │  2–3 lines; creates curiosity/tension
+│  │  │  Subtitle  clamp(2.8rem │  │  │  hook; font-black, letter-spacing tight
+│  │  │           –4.2rem)      │  │  │  2–3 lines; creates curiosity/tension
 │  │  │                         │  │  │
 │  │  │  ─── accent rule ───    │  │  │  2.5rem wide, 3px tall
 │  │  │                         │  │  │
-│  │  │  Subtitle  text-xl      │  │  │  1 line; what's inside (≤ 24자)
+│  │  │  Title  text-xl         │  │  │  1 line; what's inside (≤ 24자)
 │  │  │                         │  │  │
 │  │  │ nextinvest.org  스와이프 →│  │  │  footer — brand left, swipe CTA right
 │  │  └─────────────────────────┘  │  │
@@ -96,8 +94,6 @@ Reels viewers swipe fast. Every card must land before they swipe away.
 ```ts
 interface ReelsTitleCard {
   title: string;       // 1 line: factual descriptor — date + what's inside (≤ 24자)
-  label: string;       // topic badge — tells reader exactly what this chain covers
-                       // e.g. "미국 주요주식 52주 신고가·신저가", "미국 시장 데일리"
   subtitle: string;    // hook/teaser, 2–3 lines; punchy, creates curiosity or tension
   date: string;
   isPositive: boolean;
@@ -123,11 +119,10 @@ interface ReelsNewsCard {
 
 ### Title card
 
-**A first-time viewer must be able to tell, within 2 seconds, exactly what this Reels is about.** The `label` + `title` together carry that clarity; the `subtitle` provides the emotional hook that makes them stay.
+**A first-time viewer must be able to tell, within 2 seconds, exactly what this Reels is about.** The `title` carries the clarity; the `subtitle` provides the emotional hook that makes them stay.
 
-- **label**: Specific topic descriptor shown in the badge. A stranger who has never seen this account must understand the subject from this alone. Good: `"미국 주요주식 52주 신고가·신저가"`. Bad: `"미국 시장"` (too vague — about what?).
-- **title**: One line that names what's inside, not what happened. Complements the label with date/scope context. Good: `"4월 10일 미국 시장 완전 정리"`.
-- **subtitle**: 2–3 short lines. Write like a hook — make the viewer *have to* swipe. Use contrast, tension, or surprise. The hook works *because* the label already told them what this is; now make them curious about the answer. Good: `"물가 쇼크\n비트코인만\n올랐다"`. Bad: `"4월 10일 미국 시장 요약"` (no tension).
+- **title**: One line that names what's inside, not what happened. **Always name the subject explicitly** — a viewer who has never seen this account must know what they're getting a recap of. Ask yourself: "총정리 for WHAT?" If the answer isn't in the title, rewrite it. Bad: `"4월 13일 주간 섹터 총정리"` (섹터 총정리 — of what market?). Good: `"4월 13일 미국증시 섹터별 총정리"`. Good: `"4월 10일 미국 시장 완전 정리"`.
+- **subtitle**: 2–3 short lines. Write like a hook — make the viewer *have to* swipe. Use contrast, tension, or surprise. Good: `"물가 쇼크\n비트코인만\n올랐다"`. Bad: `"4월 10일 미국 시장 요약"` (no tension).
 
 ### Content cards
 - **Headline**: Up to 3 lines. For company-specific cards, **lead with the full company name on the first line**, then deliver the message on lines 2–3. Max ~20자/줄. Example: `"인튜잇\n실적은 좋았는데\n주가는 반토막"`. For thematic/summary cards with no single company, 2 lines is fine.

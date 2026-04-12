@@ -17,9 +17,8 @@ export interface ReelsNewsCard {
 
 // Title card — always slide 0; eye-catching cover before the content cards.
 export interface ReelsTitleCard {
-  title: string;       // hook/teaser, up to 3 lines; punchy and intriguing
-  label: string;       // topic descriptor shown in the badge (e.g. "52주 신고가·신저가 분석")
-  subtitle: string;    // 1-line summary of what's inside (≤ 24자)
+  title: string;       // 1-line factual descriptor — date + what's inside (≤ 24자)
+  subtitle: string;    // hook/teaser, up to 3 lines; punchy and intriguing
   date: string;
   isPositive: boolean;
 }
@@ -167,22 +166,7 @@ function TitleCard({ card }: { card: ReelsTitleCard }) {
 
           {/* Center block */}
           <div className="flex flex-col justify-center flex-1 gap-5">
-            {/* Category badge */}
-            <div className="flex">
-              <span
-                className="text-xs font-semibold tracking-widest uppercase px-3 py-1 rounded-full"
-                style={{
-                  background: accentBg,
-                  border: `1px solid ${accentBorder}`,
-                  color: accentColor,
-                  letterSpacing: "0.14em",
-                }}
-              >
-                {card.label}
-              </span>
-            </div>
-
-            {/* Title — the hook */}
+            {/* Subtitle — the hook (big dramatic text) */}
             <h1
               className="font-black leading-none"
               style={{
@@ -192,18 +176,18 @@ function TitleCard({ card }: { card: ReelsTitleCard }) {
                 letterSpacing: "-0.02em",
               }}
             >
-              {card.title}
+              {card.subtitle}
             </h1>
 
             {/* Accent rule */}
             <div style={{ width: "2.5rem", height: "3px", borderRadius: "9999px", background: accentColor }} />
 
-            {/* Subtitle */}
+            {/* Title — factual descriptor */}
             <p
               className="text-xl font-medium leading-snug"
               style={{ color: "rgba(255,255,255,0.55)" }}
             >
-              {card.subtitle}
+              {card.title}
             </p>
           </div>
 

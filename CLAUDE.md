@@ -84,9 +84,8 @@ Create `app/[slug]/page.tsx`. The slug encodes both date and platform, e.g. `apr
 import InstagramReelsFeed, { ReelsNewsCard, ReelsTitleCard } from "@/components/InstagramReelsFeed";
 
 const titleCard: ReelsTitleCard = {
-  title: "한 줄 요약 — 무엇을 다루나",    // factual descriptor; date + scope (≤ 24자)
-  label: "미국 주요주식 52주 신고가·신저가", // topic badge — reader must know what this is at a glance
-  subtitle: "훅이 되는\n2–3줄 제목",      // punchy hook; creates curiosity or tension
+  title: "4월 19일 미국증시 주간 총정리",  // always name the subject — ask "총정리 for WHAT?" Bad: "4월 19일 주간 총정리" (of what?)
+  subtitle: "훅이 되는\n2–3줄 제목",    // punchy hook; creates curiosity or tension
   date: "4월 19일",
   isPositive: true,
 };

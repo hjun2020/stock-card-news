@@ -16,7 +16,7 @@ const chains: Chain[] = [
     slug: "apr-13",
     date: "2026년 4월 13일",
     label: "주간 섹터 총정리",
-    description: "유가 급락이 판을 다시 짰다 — 에너지 빠지고 리츠·반도체 올랐다",
+    description: "유가 폭락이 판을 뒤집었다 — 리츠·반도체 급등, 에너지 급락",
     cardCount: 7,
     isPositive: true,
   },
