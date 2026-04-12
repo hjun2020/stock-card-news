@@ -1,6 +1,6 @@
 "use client";
 
-import InstagramReelsFeed, { NewsCard } from "@/components/InstagramReelsFeed";
+import InstagramPostFeed, { NewsCard } from "@/components/InstagramPostFeed";
 
 const cards: NewsCard[] = [
   {
@@ -132,5 +132,5 @@ const cards: NewsCard[] = [
 ];
 
 export default function Apr12Page() {
-  return <InstagramReelsFeed cards={cards} />;
+  return <InstagramPostFeed cards={cards} />;
 }

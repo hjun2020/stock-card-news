@@ -55,8 +55,9 @@ Read the spec file before editing a component or writing card content.
 
 | Spec | Component | Platform | Size | Cards | Status |
 |------|-----------|----------|------|-------|--------|
-| [instagram-reels.md](card-templates/instagram-reels.md) | `InstagramReelsFeed` | Instagram posts / reels slides | 1080×1350 (4:5) | varies (one topic per card) | ✅ Live |
-| [kakaotalk.md](card-templates/kakaotalk.md) | `KakaoTalkCardFeed` | KakaoTalk open chat | 1080×1350 (4:5) | max 4 (grouped topics, more text) | ✅ Live |
+| [instagram-reels.md](card-templates/instagram-reels.md) | `InstagramReelsFeed` | Instagram Reels slides — **5-sec read**: big headline + 2 short bullets | 1080×1350 (4:5) | varies | ✅ Live |
+| [instagram-post.md](card-templates/instagram-post.md) | `InstagramPostFeed` | Instagram feed posts — detailed: headline + 3 bullets | 1080×1350 (4:5) | varies | ✅ Live |
+| [kakaotalk.md](card-templates/kakaotalk.md) | `KakaoTalkCardFeed` | KakaoTalk open chat — grouped topics, max 4 cards, most text | 1080×1350 (4:5) | max 4 | ✅ Live |
 | `twitter.md` | `TwitterCardFeed` | Twitter / X | 1200×675 (16:9) | — | 🔲 Planned |
 | `threads.md` | `ThreadsCardFeed` | Threads | 1080×1080 (1:1) | — | 🔲 Planned |
 | `facebook.md` | `FacebookCardFeed` | Facebook feed | 1200×630 (1.91:1) | — | 🔲 Planned |
@@ -71,20 +72,33 @@ When asked to create news cards from an article, do **both** steps:
 
 **Step 1 — Create the card feed page**
 
-Create `app/[slug]/page.tsx`. The slug encodes both date and platform, e.g. `apr-19` (Instagram) or `apr-19-kakao` (KakaoTalk). The page is data only — all rendering logic lives in the component.
+Create `app/[slug]/page.tsx`. The slug encodes both date and platform, e.g. `apr-19` (Reels), `apr-19-post` (Instagram Post), or `apr-19-kakao` (KakaoTalk). The page is data only — all rendering logic lives in the component.
 
-**Instagram Reels** (one card per topic — number varies with the article):
+**Instagram Reels** (5-second read per card — big headline + 2 short bullets):
 ```tsx
 "use client";
-import InstagramReelsFeed, { NewsCard } from "@/components/InstagramReelsFeed";
+import InstagramReelsFeed, { ReelsNewsCard } from "@/components/InstagramReelsFeed";
 
-const cards: NewsCard[] = [ /* 7 cards */ ];
+const cards: ReelsNewsCard[] = [ /* 5–7 cards */ ];
 
 export default function Page() {
   return <InstagramReelsFeed cards={cards} />;
 }
 ```
-→ See [card-templates/instagram-reels.md](card-templates/instagram-reels.md) for content rules.
+→ See [card-templates/instagram-reels.md](card-templates/instagram-reels.md) for content rules. Headline max ~20자/줄; bullets exactly 2, each ≤ 20자.
+
+**Instagram Post** (detailed — headline + 3 bullets):
+```tsx
+"use client";
+import InstagramPostFeed, { NewsCard } from "@/components/InstagramPostFeed";
+
+const cards: NewsCard[] = [ /* 5–7 cards */ ];
+
+export default function Page() {
+  return <InstagramPostFeed cards={cards} />;
+}
+```
+→ See [card-templates/instagram-post.md](card-templates/instagram-post.md) for content rules.
 
 **KakaoTalk Open Chat** (max 4 cards, grouped topics, more text per card):
 ```tsx

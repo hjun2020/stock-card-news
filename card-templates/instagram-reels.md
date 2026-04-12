@@ -1,8 +1,20 @@
 # Card Template: Instagram Reels
 
-**Platform:** Instagram (posts / reels slides)
+**Platform:** Instagram Reels slides
 **Output size:** 1080 × 1350 px (4:5 portrait)
-**Current route pattern:** `app/[slug]/page.tsx`
+**Component:** `components/InstagramReelsFeed`
+**Cards per chain:** varies (one topic per card; typically 5–7 for a weekly macro article)
+**Reading target:** each card readable in ≤ 5 seconds
+
+---
+
+## Design principle
+
+Reels viewers swipe fast. Each card must land its point before the viewer swipes away:
+
+- **One headline** — the entire message in 1–2 punchy lines
+- **Two bullets only** — supporting facts, each a single short line
+- Large type, generous whitespace, minimal decoration
 
 ---
 
@@ -10,27 +22,30 @@
 
 ```
 ┌─────────────────────────────────────┐  100vw × 100svh
-│  <div>  snap slide (bg: black)      │  (scroll snap unit)
+│  <div>  snap slide (bg: black)      │  scroll snap unit
 │                                     │
 │  ┌───────────────────────────────┐  │
 │  │  <div ref=cardRef>            │  │  width: 100%
 │  │  aspect-ratio: 4/5            │  │  ← captured by html-to-image
 │  │  (gradient bg)                │  │  → saved as 1080×1350px PNG
 │  │                               │  │
-│  │  px-7 pt-5 pb-5               │  │
+│  │  px-7 pt-6 pb-6               │  │
 │  │  ┌─────────────────────────┐  │  │
-│  │  │ "{date} {theme}" text-lg  │  │  │  header — 1 line, date + theme
-│  │  ├─────────────────────────┤  │  │
-│  │  │ Headline   text-2xl     │  │  │  Korean: max ~22자/줄, 3줄 이내
-│  │  │            font-bold    │  │  │         → 총 44자 이하 권장
+│  │  │ "{date}  {theme}" text-sm│  │  │  header — small, low contrast
 │  │  │                         │  │  │
+│  │  │  [ticker pill]          │  │  │  accent-colored badge
+│  │  │                         │  │  │
+│  │  │  Headline  clamp(1.6rem  │  │  │  dominant; max ~20자/줄, 2줄 이내
+│  │  │            –2.4rem)     │  │  │
+│  │  │  font-bold              │  │  │
+│  │  │                         │  │  │
+│  │  │  ─── accent divider ─── │  │  │
+│  │  │                         │  │  │
+│  │  │  • bullet  text-sm      │  │  │  exactly 2 bullets
+│  │  │  • bullet               │  │  │  each ≤ 20자, single line
 │  │  ├─────────────────────────┤  │  │
-│  │  │ • bullet   text-l       │  │  │  Korean: max ~26자/줄, 2줄 이내
-│  │  │ • bullet   (3 items)    │  │  │         → 총 36자 이하 권장
-│  │  │ • bullet                │  │  │
-│  │  ├─────────────────────────┤  │  │
-│  │  │ 주린이를…    text-sm    │  │  │  footer — fixed string
-│  │  │ nextinvest.org text-2xl │  │  │
+│  │  │ 주린이를…    text-xs    │  │  │  footer — small, low contrast
+│  │  │ nextinvest.org text-xl  │  │  │
 │  │  └─────────────────────────┘  │  │
 │  └───────────────────────────────┘  │  ← cardRef ends here
 │                                     │
@@ -41,23 +56,37 @@
 
 ---
 
+## `ReelsNewsCard` type
+
+```ts
+interface ReelsNewsCard {
+  id: number;
+  ticker: string;         // category badge (e.g. "주식", "BTC", "금리")
+  headline: string;       // 1–2 lines; max ~20자 per line — the core message
+  bullets: [string, string]; // exactly 2; each ≤ 20자, single line
+  isPositive: boolean;
+  date: string;
+  theme: string;          // short label in header (≤ 12자)
+}
+```
+
+---
+
 ## Content writing rules
 
-Cards are for beginner investors (주린이). Write every field as if explaining to someone with zero finance knowledge:
-
-- **Theme** (`theme` field): Short label shown in the header next to the date. Describes what kind of card this is. Examples: `오늘 미국 증시 요약`, `눈에 띄는 종목`, `금리·채권 동향`, `암호화폐 동향`, `원자재 동향`, `오늘 시장 총정리`. Keep under 12자.
-- **Headline**: State what happened in plain Korean. No jargon. Avoid symbols like %, $, bp standing alone — spell out what they mean or add context (e.g. "금리 4.29%로 여전히 높아" not just "4.29%").
-- **Ticker field**: Use the plain Korean topic name (e.g. "CPI", "비트코인", "주식") not a stock symbol when the card is about a macro theme.
-- **Summary bullets**: Each bullet = one concrete, self-contained fact. Write the implication, not just the number. Bad: "USO -1.93%". Good: "유가 ETF 하루 -1.93% — 에너지주에 부담".
-- **Avoid**: Raw numbers without explanation, finance abbreviations without context (bp, DXY, TIPS, TLT), sentences that assume the reader knows what the metric means.
-- **Tone**: Friendly, matter-of-fact. Like a smart friend explaining the news over coffee.
+- **Headline**: One punchy statement — what happened AND why it matters, in the fewest possible words. Max ~20자/줄, 2 줄 이내. Can include a number if it's the whole story (e.g. "S&P500 주간 +3.5%\n기술주 중심 강하게 반등").
+- **Bullets**: Exactly 2. Each is one short line (≤ 20자). Supporting context only — the headline already carries the main message. No wrapping.
+- **Ticker**: Category label, not a stock symbol (e.g. `"금리·달러"`, `"원자재"`).
+- **No intro field** — Reels cards have no room for a framing sentence.
+- **Tone**: Punchy and direct. Cut every word that doesn't add meaning.
 
 ---
 
 ## Key technical constraints
 
-- **`cardRef` must only wrap the 4:5 content div**, never the save button — the button must not appear in the saved image.
-- On save: `pixelRatio = 1080 / element.offsetWidth` → output is exactly 1080×1350px regardless of device screen size.
-- Save uses `navigator.share({ files })` on iOS Safari (lands in Photos), falls back to `<a download>` on desktop.
-- Accent color (`accentColor`) and gradients are green for `isPositive: true`, red for `false`.
-- Background gradient: green chain → `#0f2027 → #1a3a2a → #0d1f16`; red chain → `#1a0a0a → #2d1515 → #110808`.
+- **`cardRef` must only wrap the 4:5 content div** — save button stays outside.
+- `pixelRatio = 1080 / element.offsetWidth` → output is exactly 1080×1350px.
+- Save: `navigator.share({ files })` on iOS, falls back to `<a download>` on desktop.
+- Green accent for `isPositive: true`, red for `false`.
+- Background gradients: green `#0f2027→#1a3a2a→#0d1f16`, red `#1a0a0a→#2d1515→#110808`.
+- Headline font size uses `clamp(1.6rem, 6vw, 2.4rem)` so it scales correctly across device widths.

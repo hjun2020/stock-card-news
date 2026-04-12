@@ -4,19 +4,22 @@ import { useRef, useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { toPng } from "html-to-image";
 
-// Reels cards are built for a 5-second read:
-// one punchy headline + at most 2 short bullets.
-export interface ReelsNewsCard {
+export interface NewsCard {
   id: number;
-  ticker: string;      // category label shown above headline (e.g. "주식", "BTC")
-  headline: string;    // 1–2 lines, max ~20자 per line — the core message
-  bullets: [string, string]; // exactly 2, each ≤ 20자
+  ticker: string;
+  company: string;
+  headline: string;
+  summary: string[];
+  price: string;
+  change: string;
+  changePercent: string;
   isPositive: boolean;
+  sector: string;
   date: string;
-  theme: string;       // short label in header (≤ 12자)
+  theme: string;
 }
 
-export default function InstagramReelsFeed({ cards }: { cards: ReelsNewsCard[] }) {
+export default function InstagramPostFeed({ cards }: { cards: NewsCard[] }) {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
   const router = useRouter();
@@ -73,7 +76,7 @@ export default function InstagramReelsFeed({ cards }: { cards: ReelsNewsCard[] }
   );
 }
 
-function ReelsCard({ card }: { card: ReelsNewsCard }) {
+function ReelsCard({ card }: { card: NewsCard }) {
   const cardRef = useRef<HTMLDivElement>(null);
   const [saving, setSaving] = useState(false);
 
@@ -92,14 +95,14 @@ function ReelsCard({ card }: { card: ReelsNewsCard }) {
       const pixelRatio = 1080 / cardRef.current.offsetWidth;
       const dataUrl = await toPng(cardRef.current, { pixelRatio });
       const blob = await (await fetch(dataUrl)).blob();
-      const file = new File([blob], `${card.ticker}-reels.png`, { type: "image/png" });
+      const file = new File([blob], `${card.ticker}-brief.png`, { type: "image/png" });
 
       if (navigator.canShare?.({ files: [file] })) {
-        await navigator.share({ files: [file], title: `${card.ticker} Brief` });
+        await navigator.share({ files: [file], title: `${card.ticker} Stock Brief` });
       } else {
         const a = document.createElement("a");
         a.href = dataUrl;
-        a.download = `${card.ticker}-reels.png`;
+        a.download = `${card.ticker}-brief.png`;
         a.click();
       }
     } finally {
@@ -124,54 +127,37 @@ function ReelsCard({ card }: { card: ReelsNewsCard }) {
           }}
         />
 
-        <div className="relative flex flex-col flex-1 px-7 pt-6 pb-6">
+        <div className="relative flex flex-col flex-1 px-7 pt-5 pb-5">
           {/* Header */}
-          <div className="mb-auto">
-            <span className="text-sm font-medium tracking-wide" style={{ color: "rgba(255,255,255,0.35)" }}>
-              {card.date}  {card.theme}
+          <div className="mb-6">
+            <span className="text-lg font-semibold" style={{ color: "rgba(255,255,255,0.4)" }}>
+              {card.date} {card.theme}
             </span>
           </div>
 
-          {/* Center block: ticker + headline */}
-          <div className="flex flex-col justify-center flex-1 gap-4">
-            {/* Ticker label */}
-            <span
-              className="text-xs font-bold tracking-widest uppercase px-3 py-1 rounded-full self-start"
-              style={{ background: accentBg, border: `1px solid ${accentBorder}`, color: accentColor }}
-            >
-              {card.ticker}
-            </span>
+          {/* Headline */}
+          <h2 className="text-2xl font-bold leading-snug mb-8" style={{ color: "rgba(255,255,255,0.95)" }}>
+            {card.headline}
+          </h2>
 
-            {/* Headline — dominant element */}
-            <h2
-              className="font-bold leading-tight"
-              style={{ color: "rgba(255,255,255,0.97)", fontSize: "clamp(1.6rem, 6vw, 2.4rem)", whiteSpace: "pre-line" }}
-            >
-              {card.headline}
-            </h2>
-
-            {/* Divider */}
-            <div className="w-8 h-0.5 rounded-full" style={{ background: accentColor }} />
-
-            {/* 2 bullets */}
-            <div className="flex flex-col gap-3">
-              {card.bullets.map((b, i) => (
-                <div key={i} className="flex items-center gap-3">
-                  <div className="w-1 h-1 rounded-full shrink-0" style={{ background: accentColor }} />
-                  <p className="text-sm font-medium" style={{ color: "rgba(255,255,255,0.65)" }}>
-                    {b}
-                  </p>
-                </div>
-              ))}
-            </div>
+          {/* Summary bullets */}
+          <div className="flex flex-col gap-5 flex-1">
+            {card.summary.map((point, i) => (
+              <div key={i} className="flex items-start gap-3">
+                <div className="w-1.5 h-1.5 rounded-full mt-2 shrink-0" style={{ background: accentColor }} />
+                <p className="text-l leading-relaxed" style={{ color: "rgba(255,255,255,0.75)" }}>
+                  {point}
+                </p>
+              </div>
+            ))}
           </div>
 
           {/* Footer */}
-          <div className="mt-auto flex flex-col items-center pt-6">
-            <p className="text-xs" style={{ color: "rgba(255,255,255,0.35)" }}>
+          <div className="mt-5 flex flex-col items-center">
+            <p className="text-sm" style={{ color: "rgba(255,255,255,0.89)" }}>
               주린이를 위한 미국증시
             </p>
-            <p className="text-xl font-bold" style={{ color: "rgba(255,255,255,0.7)" }}>
+            <p className="text-2xl font-bold" style={{ color: "rgba(248,244,244,1)" }}>
               nextinvest.org
             </p>
           </div>
