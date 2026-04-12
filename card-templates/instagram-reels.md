@@ -33,9 +33,7 @@ Reels viewers swipe fast. Each card must land its point before the viewer swipes
 │  │  ┌─────────────────────────┐  │  │
 │  │  │ "{date}  {theme}" text-sm│  │  │  header — small, low contrast
 │  │  │                         │  │  │
-│  │  │  [ticker pill]          │  │  │  accent-colored badge
-│  │  │                         │  │  │
-│  │  │  Headline  clamp(2.1rem  │  │  │  dominant; max ~20자/줄, 2줄 이내
+│  │  │  Headline  clamp(2.1rem  │  │  │  dominant; max ~20자/줄, 3줄 이내
 │  │  │            –3.2rem)     │  │  │
 │  │  │  font-bold              │  │  │
 │  │  │                         │  │  │
@@ -61,12 +59,11 @@ Reels viewers swipe fast. Each card must land its point before the viewer swipes
 ```ts
 interface ReelsNewsCard {
   id: number;
-  ticker: string;         // badge shown above headline — full company name or Korean category (e.g. "GE Vernova", "인텔", "금리·달러"); never a stock symbol
-  headline: string;       // 1–2 lines; max ~20자 per line — the core message
+  headline: string;          // up to 3 lines; lead with full company name on line 1
   bullets: [string, string]; // exactly 2; each ≤ 20자, single line
   isPositive: boolean;
   date: string;
-  theme: string;          // short label in header (≤ 12자)
+  theme: string;             // short label in header (≤ 12자)
 }
 ```
 
@@ -74,10 +71,10 @@ interface ReelsNewsCard {
 
 ## Content writing rules
 
-- **Headline**: One punchy statement — what happened AND why it matters, in the fewest possible words. Max ~20자/줄, 2줄 이내. Can include a number if it's the whole story (e.g. "S&P500 주간 +3.5%\n기술주 중심 강하게 반등").
+- **Headline**: Up to 3 lines. For company-specific cards, **lead with the full company name on the first line**, then deliver the message on lines 2–3. Max ~20자/줄. Example: `"인튜잇\n실적은 좋았는데\n주가는 반토막"`. For thematic/summary cards with no single company, 2 lines is fine.
 - **Bullets**: Exactly 2. Each is one short line (≤ 20자). Supporting context only — the headline already carries the main message. No wrapping.
-- **Ticker field**: The badge label shown above the headline. Use a plain Korean category name (e.g. `"금리·달러"`, `"원자재"`) or the **full company name** (e.g. `"GE Vernova"`, `"인튜잇"`). **Never use stock symbols or tickers** (no `"INTC"`, `"GEV"`, `"KLAC"`).
-- **No tickers or symbols anywhere in headline or bullets** — always write the full company name or plain Korean description. A viewer who doesn't know the stock market must be able to read every word without a glossary. Bad: `"INTC 주간 +25%"`. Good: `"인텔 주간 +25%"`.
+- **No ticker field** — the company name lives in the headline. No badge, no pill.
+- **No tickers or symbols anywhere** — always write the full company name or plain Korean. Bad: `"INTC 주간 +25%"`. Good: `"인텔 주간 +25%"`.
 - **No intro field** — Reels cards have no room for a framing sentence.
 - **Tone**: Punchy and direct. Cut every word that doesn't add meaning.
 

@@ -8,8 +8,7 @@ import { toPng } from "html-to-image";
 // one punchy headline + at most 2 short bullets.
 export interface ReelsNewsCard {
   id: number;
-  ticker: string;      // category label shown above headline (e.g. "주식", "BTC")
-  headline: string;    // 1–2 lines, max ~20자 per line — the core message
+  headline: string;    // up to 3 lines; lead with full company name, then the message
   bullets: [string, string]; // exactly 2, each ≤ 20자
   isPositive: boolean;
   date: string;
@@ -92,14 +91,14 @@ function ReelsCard({ card }: { card: ReelsNewsCard }) {
       const pixelRatio = 1080 / cardRef.current.offsetWidth;
       const dataUrl = await toPng(cardRef.current, { pixelRatio });
       const blob = await (await fetch(dataUrl)).blob();
-      const file = new File([blob], `${card.ticker}-reels.png`, { type: "image/png" });
+      const file = new File([blob], `reels-${card.id}.png`, { type: "image/png" });
 
       if (navigator.canShare?.({ files: [file] })) {
-        await navigator.share({ files: [file], title: `${card.ticker} Brief` });
+        await navigator.share({ files: [file], title: card.theme });
       } else {
         const a = document.createElement("a");
         a.href = dataUrl;
-        a.download = `${card.ticker}-reels.png`;
+        a.download = `reels-${card.id}.png`;
         a.click();
       }
     } finally {
@@ -132,16 +131,8 @@ function ReelsCard({ card }: { card: ReelsNewsCard }) {
             </span>
           </div>
 
-          {/* Center block: ticker + headline */}
+          {/* Center block: headline */}
           <div className="flex flex-col justify-center flex-1 gap-4">
-            {/* Ticker label */}
-            <span
-              className="text-xs font-bold tracking-widest uppercase px-3 py-1 rounded-full self-start"
-              style={{ background: accentBg, border: `1px solid ${accentBorder}`, color: accentColor }}
-            >
-              {card.ticker}
-            </span>
-
             {/* Headline — dominant element */}
             <h2
               className="font-bold leading-tight"
