@@ -13,6 +13,14 @@ interface Chain {
 
 const chains: Chain[] = [
   {
+    slug: "apr-10",
+    date: "2026년 4월 10일",
+    label: "인플레 쇼크 데이",
+    description: "CPI 서프라이즈 — 금리·달러 출렁, 비트코인은 버텼다",
+    cardCount: 7,
+    isPositive: false,
+  },
+  {
     slug: "apr-12-52w",
     date: "2026년 4월 12일",
     label: "52주 극단 종목 분석",
