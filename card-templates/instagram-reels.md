@@ -3,41 +3,76 @@
 **Platform:** Instagram Reels slides
 **Output size:** 1080 × 1350 px (4:5 portrait)
 **Component:** `components/InstagramReelsFeed`
-**Cards per chain:** varies (one topic per card; typically 5–7 for a weekly macro article)
+**Cards per chain:** 1 title card + 5–7 content cards
 **Reading target:** each card readable in ≤ 5 seconds
 
 ---
 
 ## Design principle
 
-Reels viewers swipe fast. Each card must land its point before the viewer swipes away:
+Reels viewers swipe fast. Every card must land before they swipe away.
 
-- **One headline** — the entire message in 1–2 punchy lines
-- **Two bullets only** — supporting facts, each a single short line
+- **Slide 0 — title card**: eye-catching cover; hook that makes the viewer want to keep swiping
+- **Slides 1–N — content cards**: one point per card — a punchy headline + exactly 2 short bullets
 - Large type, generous whitespace, minimal decoration
 
 ---
 
-## DOM structure per slide
+## DOM structure
+
+### Title card (slide 0)
 
 ```
 ┌─────────────────────────────────────┐  100vw × 100svh
-│  <div>  snap slide (bg: black)      │  scroll snap unit
+│  snap slide (bg: black)             │
 │                                     │
 │  ┌───────────────────────────────┐  │
-│  │  <div ref=cardRef>            │  │  width: 100%
-│  │  aspect-ratio: 4/5            │  │  ← captured by html-to-image
-│  │  (gradient bg)                │  │  → saved as 1080×1350px PNG
+│  │  <div ref=cardRef>            │  │  width: 100%, aspect-ratio: 4/5
+│  │  deeper gradient (more drama) │  │  ← captured by html-to-image
+│  │                               │  │
+│  │  px-7 pt-7 pb-6               │  │
+│  │  ┌─────────────────────────┐  │  │
+│  │  │ nextinvest   (accent)   │  │  │  top-left brand, accent color
+│  │  │              {date}     │  │  │  top-right date, low contrast
+│  │  │                         │  │  │
+│  │  │  radial glow (bg)       │  │  │  subtle accent glow behind title
+│  │  │                         │  │  │
+│  │  │  [{label} badge]        │  │  │  topic pill — tells reader what this is
+│  │  │                         │  │  │
+│  │  │  Title  clamp(2.8rem    │  │  │  hook; font-black, letter-spacing tight
+│  │  │         –4.2rem)        │  │  │  2–3 lines; creates curiosity/tension
+│  │  │                         │  │  │
+│  │  │  ─── accent rule ───    │  │  │  2.5rem wide, 3px tall
+│  │  │                         │  │  │
+│  │  │  Subtitle  text-xl      │  │  │  1 line; what's inside (≤ 24자)
+│  │  │                         │  │  │
+│  │  │ nextinvest.org  스와이프 →│  │  │  footer — brand left, swipe CTA right
+│  │  └─────────────────────────┘  │  │
+│  └───────────────────────────────┘  │  ← cardRef ends here
+│                                     │
+│  [ ↓ Save to Photos ]               │  button NOT inside cardRef
+└─────────────────────────────────────┘
+          • • • • •   dot indicators (absolute, bottom-8)
+```
+
+### Content card (slides 1–N)
+
+```
+┌─────────────────────────────────────┐  100vw × 100svh
+│  snap slide (bg: black)             │
+│                                     │
+│  ┌───────────────────────────────┐  │
+│  │  <div ref=cardRef>            │  │  width: 100%, aspect-ratio: 4/5
+│  │  standard gradient            │  │  ← captured by html-to-image
 │  │                               │  │
 │  │  px-7 pt-6 pb-6               │  │
 │  │  ┌─────────────────────────┐  │  │
 │  │  │ "{date}  {theme}" text-sm│  │  │  header — small, low contrast
 │  │  │                         │  │  │
-│  │  │  Headline  clamp(2.1rem  │  │  │  dominant; max ~20자/줄, 3줄 이내
-│  │  │            –3.2rem)     │  │  │
-│  │  │  font-bold              │  │  │
+│  │  │  Headline  clamp(2.1rem  │  │  │  dominant; max ~20자/줄, up to 3 lines
+│  │  │            –3.2rem)     │  │  │  font-bold
 │  │  │                         │  │  │
-│  │  │  ─── accent divider ─── │  │  │
+│  │  │  ─── accent divider ─── │  │  │  2rem wide, 2px tall
 │  │  │                         │  │  │
 │  │  │  • bullet  text-xl      │  │  │  exactly 2 bullets
 │  │  │  • bullet               │  │  │  each ≤ 20자, single line
@@ -56,14 +91,14 @@ Reels viewers swipe fast. Each card must land its point before the viewer swipes
 
 ## Types
 
-### `ReelsTitleCard` — slide 0, always present
+### `ReelsTitleCard` — slide 0, always required
 
 ```ts
 interface ReelsTitleCard {
-  title: string;       // hook/teaser up to 3 lines; punchy, intriguing, creates curiosity
-  label: string;       // topic descriptor in the badge — tells reader exactly what this is
+  title: string;       // hook/teaser, 2–3 lines; punchy, creates curiosity or tension
+  label: string;       // topic badge — tells reader exactly what this chain covers
                        // e.g. "미국 주요주식 52주 신고가·신저가", "미국 시장 데일리"
-  subtitle: string;    // 1 line: what's inside this chain (≤ 24자)
+  subtitle: string;    // 1 line: what's inside (≤ 24자)
   date: string;
   isPositive: boolean;
 }
@@ -87,8 +122,9 @@ interface ReelsNewsCard {
 ## Content writing rules
 
 ### Title card
-- **title**: 2–3 short lines. Write like a hook or a provocative question that makes the viewer *have to* swipe. Create contrast, tension, or surprise. Good: `"물가 쇼크\n비트코인만\n올랐다"`. Bad: `"4월 10일 미국 시장 요약"`.
-- **subtitle**: One short line that says what's inside, not what happened (≤ 24자). Good: `"4월 10일 미국 시장 완전 정리"`.
+- **title**: 2–3 short lines. Write like a hook — make the viewer *have to* swipe. Use contrast, tension, or surprise. Good: `"물가 쇼크\n비트코인만\n올랐다"`. Bad: `"4월 10일 미국 시장 요약"`.
+- **label**: Specific topic descriptor, not a generic platform label. Good: `"미국 주요주식 52주 신고가·신저가"`. Bad: `"미국 시장"`.
+- **subtitle**: One line that names what's inside, not what happened. Good: `"4월 10일 미국 시장 완전 정리"`.
 
 ### Content cards
 - **Headline**: Up to 3 lines. For company-specific cards, **lead with the full company name on the first line**, then deliver the message on lines 2–3. Max ~20자/줄. Example: `"인튜잇\n실적은 좋았는데\n주가는 반토막"`. For thematic/summary cards with no single company, 2 lines is fine.
@@ -106,5 +142,7 @@ interface ReelsNewsCard {
 - `pixelRatio = 1080 / element.offsetWidth` → output is exactly 1080×1350px.
 - Save: `navigator.share({ files })` on iOS, falls back to `<a download>` on desktop.
 - Green accent for `isPositive: true`, red for `false`.
-- Background gradients: green `#0f2027→#1a3a2a→#0d1f16`, red `#1a0a0a→#2d1515→#110808`.
-- Headline font size uses `clamp(2.1rem, 8vw, 3.2rem)` so it scales correctly across device widths.
+- **Title card gradients** (deeper/more dramatic): green `#061410→#0d2b1e→#071a10→#030d08`, red `#120404→#250a0a→#150505→#080202`.
+- **Content card gradients**: green `#0f2027→#1a3a2a→#0d1f16`, red `#1a0a0a→#2d1515→#110808`.
+- Title card headline uses `clamp(2.8rem, 11vw, 4.2rem)` with `font-black` and tight letter-spacing.
+- Content card headline uses `clamp(2.1rem, 8vw, 3.2rem)` with `font-bold`.
