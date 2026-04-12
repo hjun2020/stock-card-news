@@ -1,5 +1,12 @@
 "use client";
-import InstagramReelsFeed, { ReelsNewsCard } from "@/components/InstagramReelsFeed";
+import InstagramReelsFeed, { ReelsNewsCard, ReelsTitleCard } from "@/components/InstagramReelsFeed";
+
+const titleCard: ReelsTitleCard = {
+  title: "물가 쇼크\n비트코인만\n올랐다",
+  subtitle: "4월 10일 미국 시장 완전 정리",
+  date: "4월 10일",
+  isPositive: false,
+};
 
 const cards: ReelsNewsCard[] = [
   {
@@ -82,5 +89,5 @@ const cards: ReelsNewsCard[] = [
 ];
 
 export default function Apr10Page() {
-  return <InstagramReelsFeed cards={cards} />;
+  return <InstagramReelsFeed cards={cards} titleCard={titleCard} />;
 }

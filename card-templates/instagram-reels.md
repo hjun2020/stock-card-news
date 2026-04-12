@@ -54,7 +54,20 @@ Reels viewers swipe fast. Each card must land its point before the viewer swipes
 
 ---
 
-## `ReelsNewsCard` type
+## Types
+
+### `ReelsTitleCard` — slide 0, always present
+
+```ts
+interface ReelsTitleCard {
+  title: string;       // hook/teaser up to 3 lines; punchy, intriguing, creates curiosity
+  subtitle: string;    // 1 line: what's inside this chain (≤ 24자)
+  date: string;
+  isPositive: boolean;
+}
+```
+
+### `ReelsNewsCard` — content slides 1–N
 
 ```ts
 interface ReelsNewsCard {
@@ -71,6 +84,11 @@ interface ReelsNewsCard {
 
 ## Content writing rules
 
+### Title card
+- **title**: 2–3 short lines. Write like a hook or a provocative question that makes the viewer *have to* swipe. Create contrast, tension, or surprise. Good: `"물가 쇼크\n비트코인만\n올랐다"`. Bad: `"4월 10일 미국 시장 요약"`.
+- **subtitle**: One short line that says what's inside, not what happened (≤ 24자). Good: `"4월 10일 미국 시장 완전 정리"`.
+
+### Content cards
 - **Headline**: Up to 3 lines. For company-specific cards, **lead with the full company name on the first line**, then deliver the message on lines 2–3. Max ~20자/줄. Example: `"인튜잇\n실적은 좋았는데\n주가는 반토막"`. For thematic/summary cards with no single company, 2 lines is fine.
 - **Bullets**: Exactly 2. Each is one short line (≤ 20자). Supporting context only — the headline already carries the main message. No wrapping.
 - **No ticker field** — the company name lives in the headline. No badge, no pill.

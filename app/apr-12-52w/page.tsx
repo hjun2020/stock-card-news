@@ -1,5 +1,12 @@
 "use client";
-import InstagramReelsFeed, { ReelsNewsCard } from "@/components/InstagramReelsFeed";
+import InstagramReelsFeed, { ReelsNewsCard, ReelsTitleCard } from "@/components/InstagramReelsFeed";
+
+const titleCard: ReelsTitleCard = {
+  title: "같은 기술주\n왜 누구는 오르고\n누구는 무너졌나",
+  subtitle: "52주 신고가·신저가 종목 완전 분석",
+  date: "4월 12일",
+  isPositive: true,
+};
 
 const cards: ReelsNewsCard[] = [
   {
@@ -61,5 +68,5 @@ const cards: ReelsNewsCard[] = [
 ];
 
 export default function Page() {
-  return <InstagramReelsFeed cards={cards} />;
+  return <InstagramReelsFeed cards={cards} titleCard={titleCard} />;
 }

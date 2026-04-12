@@ -74,18 +74,25 @@ When asked to create news cards from an article, do **both** steps:
 
 Create `app/[slug]/page.tsx`. The slug encodes both date and platform, e.g. `apr-19` (Reels), `apr-19-post` (Instagram Post), or `apr-19-kakao` (KakaoTalk). The page is data only — all rendering logic lives in the component.
 
-**Instagram Reels** (5-second read per card — big headline + 2 short bullets):
+**Instagram Reels** (title card + 5–7 content cards — 5-second read per card):
 ```tsx
 "use client";
-import InstagramReelsFeed, { ReelsNewsCard } from "@/components/InstagramReelsFeed";
+import InstagramReelsFeed, { ReelsNewsCard, ReelsTitleCard } from "@/components/InstagramReelsFeed";
+
+const titleCard: ReelsTitleCard = {
+  title: "훅이 되는\n2–3줄 제목",   // punchy hook; creates curiosity or tension
+  subtitle: "한 줄 요약 — 무엇을 다루나",  // ≤ 24자
+  date: "4월 19일",
+  isPositive: true,
+};
 
 const cards: ReelsNewsCard[] = [ /* 5–7 cards */ ];
 
 export default function Page() {
-  return <InstagramReelsFeed cards={cards} />;
+  return <InstagramReelsFeed cards={cards} titleCard={titleCard} />;
 }
 ```
-→ See [card-templates/instagram-reels.md](card-templates/instagram-reels.md) for content rules. Headline max ~20자/줄; bullets exactly 2, each ≤ 20자.
+→ See [card-templates/instagram-reels.md](card-templates/instagram-reels.md) for content rules. Title card is **always required**. Headline max ~20자/줄; bullets exactly 2, each ≤ 20자.
 
 **Instagram Post** (detailed — headline + 3 bullets):
 ```tsx
