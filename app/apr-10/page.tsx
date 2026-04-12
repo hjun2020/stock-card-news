@@ -3,6 +3,7 @@ import InstagramReelsFeed, { ReelsNewsCard, ReelsTitleCard } from "@/components/
 
 const titleCard: ReelsTitleCard = {
   title: "물가 쇼크\n비트코인만\n올랐다",
+  label: "미국 시장 데일리",
   subtitle: "4월 10일 미국 시장 완전 정리",
   date: "4월 10일",
   isPositive: false,

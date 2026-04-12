@@ -18,6 +18,7 @@ export interface ReelsNewsCard {
 // Title card — always slide 0; eye-catching cover before the content cards.
 export interface ReelsTitleCard {
   title: string;       // hook/teaser, up to 3 lines; punchy and intriguing
+  label: string;       // topic descriptor shown in the badge (e.g. "52주 신고가·신저가 분석")
   subtitle: string;    // 1-line summary of what's inside (≤ 24자)
   date: string;
   isPositive: boolean;
@@ -177,7 +178,7 @@ function TitleCard({ card }: { card: ReelsTitleCard }) {
                   letterSpacing: "0.14em",
                 }}
               >
-                미국 시장
+                {card.label}
               </span>
             </div>
 

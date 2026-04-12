@@ -3,7 +3,8 @@ import InstagramReelsFeed, { ReelsNewsCard, ReelsTitleCard } from "@/components/
 
 const titleCard: ReelsTitleCard = {
   title: "같은 기술주\n왜 누구는 오르고\n누구는 무너졌나",
-  subtitle: "52주 신고가·신저가 종목 완전 분석",
+  label: "미국 주요주식 52주 신고가·신저가",
+  subtitle: "신고가·신저가 종목 완전 분석",
   date: "4월 12일",
   isPositive: true,
 };

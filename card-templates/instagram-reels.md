@@ -61,6 +61,8 @@ Reels viewers swipe fast. Each card must land its point before the viewer swipes
 ```ts
 interface ReelsTitleCard {
   title: string;       // hook/teaser up to 3 lines; punchy, intriguing, creates curiosity
+  label: string;       // topic descriptor in the badge — tells reader exactly what this is
+                       // e.g. "미국 주요주식 52주 신고가·신저가", "미국 시장 데일리"
   subtitle: string;    // 1 line: what's inside this chain (≤ 24자)
   date: string;
   isPositive: boolean;
