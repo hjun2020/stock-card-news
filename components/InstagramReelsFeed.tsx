@@ -145,7 +145,7 @@ function ReelsCard({ card }: { card: ReelsNewsCard }) {
             {/* Headline — dominant element */}
             <h2
               className="font-bold leading-tight"
-              style={{ color: "rgba(255,255,255,0.97)", fontSize: "clamp(1.6rem, 6vw, 2.4rem)", whiteSpace: "pre-line" }}
+              style={{ color: "rgba(255,255,255,0.97)", fontSize: "clamp(2.1rem, 8vw, 3.2rem)", whiteSpace: "pre-line" }}
             >
               {card.headline}
             </h2>
@@ -158,7 +158,7 @@ function ReelsCard({ card }: { card: ReelsNewsCard }) {
               {card.bullets.map((b, i) => (
                 <div key={i} className="flex items-center gap-3">
                   <div className="w-1 h-1 rounded-full shrink-0" style={{ background: accentColor }} />
-                  <p className="text-sm font-medium" style={{ color: "rgba(255,255,255,0.65)" }}>
+                  <p className="text-lg font-medium" style={{ color: "rgba(255,255,255,0.65)" }}>
                     {b}
                   </p>
                 </div>
