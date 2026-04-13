@@ -1,72 +1,132 @@
 "use client";
-import InstagramReelsFeed, { ReelsNewsCard, ReelsTitleCard } from "@/components/InstagramReelsFeed";
+import InstagramTextSlidesFeed, {
+  TextSlide,
+  TextTitleSlide,
+} from "@/components/InstagramTextSlidesFeed";
 
-const titleCard: ReelsTitleCard = {
-  title: "주식 수익률 1위가 60대 여성인 이유",
-  subtitle: "30대 남성이\n꼭 봐야 합니다",
+const titleSlide: TextTitleSlide = {
   date: "4월 13일",
+  lines: [
+    "주식 수익률 1위가",
+    "60대 여성인 이유",
+    "30대 남성이 꼭 봐야 합니다 ↓",
+  ],
   isPositive: true,
 };
 
-const cards: ReelsNewsCard[] = [
+const slides: TextSlide[] = [
   {
     id: 1,
-    headline: "수익률 1위\n60대 여성 +25.9%\n꼴찌는 20대 남성",
-    bullets: ["5위까지 전원 여성이 독식", "20대 남성 +19.0% — 6.9%p 격차"],
-    isPositive: true,
+    label: "반전 데이터",
     date: "4월 13일",
-    theme: "수익률 순위",
+    isPositive: true,
+    lines: [
+      "수익률 순위가 이렇습니다",
+      "",
+      "🥇 60대 여성 +25.9%",
+      "🥈 40대 여성 +25.9%",
+      "🥉 50대 여성 +25.7%",
+      "4위 30대 여성 +25.6%",
+      "5위 20대 여성 +24.8%",
+      "…",
+      "🔻 20대 남성 +19.0% (꼴찌)",
+    ],
   },
   {
     id: 2,
-    headline: "종목 차이가 아니다\n행동 차이가\n수익률을 갈랐다",
-    bullets: ["60대 여성: 우량주 사고 그냥 둠", "20대 남성: 자주 사고 자주 팜"],
-    isPositive: true,
+    label: "왜 이런 결과가?",
     date: "4월 13일",
-    theme: "행동 차이",
+    isPositive: true,
+    lines: [
+      "종목이 달라서가 아닙니다",
+      "행동이 달랐습니다",
+      "",
+      "60대 여성: 우량주 사고 그냥 둠",
+      "20~30대 남성: 자주 사고 자주 팜",
+      "",
+      "이 차이 하나가",
+      "수익률 6%p를 만들었습니다",
+    ],
   },
   {
     id: 3,
-    headline: "매매 회전율이란\n1년에 얼마나\n갈아탔냐는 뜻",
-    bullets: ["100% = 보유 종목 1년에 1번 교체", "200% = 1년에 2번 전부 교체"],
-    isPositive: true,
+    label: "회전율이란?",
     date: "4월 13일",
-    theme: "회전율 설명",
+    isPositive: true,
+    lines: [
+      "매매 회전율이 뭔지 아세요?",
+      "",
+      "1년 동안 내 주식을",
+      "얼마나 자주 갈아탔냐는 뜻입니다",
+      "",
+      "100% = 보유 종목을 1년에 한 번 전부 교체",
+      "200% = 1년에 두 번 전부 교체",
+    ],
   },
   {
     id: 4,
-    headline: "여기서 갈렸다\n여성 85% vs\n20대 남성 219%",
-    bullets: ["많이 바꿀수록 수익률은 낮았다", "회전율 2배 차이 → 6%p 격차"],
-    isPositive: false,
+    label: "실제 데이터",
     date: "4월 13일",
-    theme: "회전율 데이터",
+    isPositive: false,
+    lines: [
+      "근데 수익률 1위와 꼴찌의 차이가",
+      "여기서 갈렸습니다",
+      "",
+      "여성 평균 → 85% (거의 안 바꿈)",
+      "남성 평균 → 181% (1년에 두 번)",
+      "20대 남성 → 219% (두 번 이상)",
+      "",
+      "많이 바꿀수록 수익률은 낮았습니다",
+    ],
   },
   {
     id: 5,
-    headline: "자주 매매할수록\n수익률이\n조용히 갉아먹힌다",
-    bullets: ["거래마다 수수료·세금 발생", "감정적 판단 → 잘못된 타이밍"],
-    isPositive: false,
+    label: "매매 비용",
     date: "4월 13일",
-    theme: "매매 비용",
+    isPositive: false,
+    lines: [
+      "많이 살수록 왜 손해일까요?",
+      "",
+      "거래할 때마다 수수료 발생",
+      "차익 실현하면 세금 발생",
+      "잦은 매매는 감정적 판단으로 이어짐",
+      "잘못된 타이밍에 사고팔게 됨",
+      "",
+      "이 네 가지가",
+      "조용히 수익률을 갉아먹습니다",
+    ],
   },
   {
     id: 6,
-    headline: "60대 여성의\n전략은 단순하다",
-    bullets: ["좋은 종목 고르고 오래 들고 있기", "단순한 원칙이 복잡한 기술을 이겼다"],
-    isPositive: true,
+    label: "핵심 교훈",
     date: "4월 13일",
-    theme: "핵심 교훈",
+    isPositive: true,
+    lines: [
+      "60대 여성의 전략은 단순합니다",
+      "",
+      "✅ 좋은 종목 고르고",
+      "✅ 시장이 흔들려도 버티고",
+      "✅ 오래 들고 있기",
+      "",
+      "복잡한 기술보다",
+      "단순한 원칙이 이겼습니다",
+    ],
   },
   {
     id: 7,
-    headline: "주식은 자주 볼수록\n손해라는\n연구도 있다",
-    bullets: ["매주 이런 데이터 정리해드립니다", "팔로우하면 놓치지 않습니다"],
-    isPositive: true,
+    label: "마무리",
     date: "4월 13일",
-    theme: "마무리",
+    isPositive: true,
+    lines: [
+      "주식은 자주 볼수록",
+      "손해라는 연구도 있습니다",
+      "",
+      "이런 데이터 매주 정리해드립니다",
+      "팔로우 →",
+    ],
   },
 ];
 
 export default function Page() {
-  return <InstagramReelsFeed cards={cards} titleCard={titleCard} />;
+  return <InstagramTextSlidesFeed titleSlide={titleSlide} slides={slides} />;
 }
