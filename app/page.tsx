@@ -13,6 +13,14 @@ interface Chain {
 
 const chains: Chain[] = [
   {
+    slug: "apr-13-market",
+    date: "2026년 4월 13일",
+    label: "4월 13일 시황 총정리",
+    description: "오라클 +12% 급등·기술 섹터 +3.39% — 악재 속에서도 AI·성장주로 다시 베팅한 하루",
+    cardCount: 8,
+    isPositive: true,
+  },
+  {
     slug: "apr-14-ai-reels",
     date: "2026년 4월 14일",
     label: "AI 대표주 주간 총정리",
