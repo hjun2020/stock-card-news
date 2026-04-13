@@ -65,9 +65,7 @@ Reels viewers swipe fast. Every card must land before they swipe away.
 │  │                               │  │
 │  │  px-7 pt-6 pb-6               │  │
 │  │  ┌─────────────────────────┐  │  │
-│  │  │ "{date}  {theme}" text-sm│  │  │  header — small, low contrast
-│  │  │                         │  │  │
-│  │  │  Headline  clamp(2.4rem  │  │  │  dominant; max ~20자/줄, up to 3 lines
+│  │  │  Headline  clamp(2.4rem  │  │  │  dominant; max ~35자/줄, up to 4 lines
 │  │  │            –3.6rem)     │  │  │  font-bold; vertically centered
 │  │  ├─────────────────────────┤  │  │
 │  │  │ 주린이를…    text-xs    │  │  │  footer — small, low contrast
@@ -100,7 +98,7 @@ interface ReelsTitleCard {
 ```ts
 interface ReelsNewsCard {
   id: number;
-  headline: string;  // up to 3 lines; lead with full company name on line 1
+  headline: string;  // up to 4 lines; lead with full company name on line 1
   isPositive: boolean;
   date: string;
   theme: string;     // short label in header (≤ 12자)
@@ -120,7 +118,7 @@ interface ReelsNewsCard {
 
 ### Content cards
 - **Headline only** — no bullets, no dividers. The headline is the entire message.
-- **Headline**: Up to 3 lines. For company-specific cards, **lead with the full company name on the first line**, then deliver the message on lines 2–3. Max ~20자/줄. Example: `"인튜잇\n실적은 좋았는데\n주가는 반토막"`. For thematic/summary cards, 2 lines is fine.
+- **Headline**: Up to 4 lines. For company-specific cards, **lead with the full company name on the first line**, then deliver the message on lines 2–4. Max ~35자/줄. Example: `"인튜잇\n실적은 좋았는데\n주가는 반토막"`. For thematic/summary cards, 2–3 lines is fine.
 - **No ticker field** — the company name lives in the headline. No badge, no pill.
 - **No tickers or symbols anywhere** — always write the full company name or plain Korean. Bad: `"INTC 주간 +25%"`. Good: `"인텔 주간 +25%"`.
 - **Tone**: Punchy and direct. Cut every word that doesn't add meaning.

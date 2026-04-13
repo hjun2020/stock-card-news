@@ -13,6 +13,14 @@ interface Chain {
 
 const chains: Chain[] = [
   {
+    slug: "apr-14-ai-reels",
+    date: "2026년 4월 14일",
+    label: "AI 대표주 주간 총정리",
+    description: "AMD·NVDA·AMZN 등 9종목 한 주 만에 두 자릿수 동반 상승 — 왜 같이 움직였나",
+    cardCount: 8,
+    isPositive: true,
+  },
+  {
     slug: "apr-13-irp",
     date: "2026년 4월 13일",
     label: "IRP vs 연금저축",

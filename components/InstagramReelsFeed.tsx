@@ -8,7 +8,7 @@ import { toPng } from "html-to-image";
 // one punchy headline + at most 2 short bullets.
 export interface ReelsNewsCard {
   id: number;
-  headline: string;    // up to 3 lines; lead with full company name, then the message
+  headline: string;    // up to 4 lines; ~35자/줄; lead with full company name, then the message
   isPositive: boolean;
   date: string;
   theme: string;       // short label in header (≤ 12자)
@@ -364,13 +364,6 @@ function ReelsCard({ card }: { card: ReelsNewsCard }) {
         />
 
         <div className="relative flex flex-col flex-1 px-7 pt-6 pb-6">
-          {/* Header */}
-          <div className="mb-auto">
-            <span className="text-sm font-medium tracking-wide" style={{ color: "rgba(255,255,255,0.35)" }}>
-              {card.date}  {card.theme}
-            </span>
-          </div>
-
           {/* Center block: headline only */}
           <div className="flex flex-col justify-center flex-1">
             <h2

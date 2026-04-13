@@ -96,7 +96,7 @@ export default function Page() {
   return <InstagramReelsFeed cards={cards} titleCard={titleCard} />;
 }
 ```
-→ See [card-templates/instagram-reels.md](card-templates/instagram-reels.md) for content rules. Title card is **always required**. Headline max ~20자/줄; bullets exactly 2, each ≤ 20자.
+→ See [card-templates/instagram-reels.md](card-templates/instagram-reels.md) for content rules. Title card is **always required**. Headline max ~35자/줄, up to 4 lines.
 
 **Instagram Post** (detailed — headline + 3 bullets):
 ```tsx
