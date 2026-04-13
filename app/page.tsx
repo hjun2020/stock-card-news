@@ -13,6 +13,14 @@ interface Chain {
 
 const chains: Chain[] = [
   {
+    slug: "apr-13-irp",
+    date: "2026년 4월 13일",
+    label: "IRP vs 연금저축",
+    description: "둘 다 세액공제인데 뭐가 다를까 — 가입 자격·한도·중도인출 비교",
+    cardCount: 12,
+    isPositive: true,
+  },
+  {
     slug: "apr-13-women-reels",
     date: "2026년 4월 13일",
     label: "60대 여성 수익률 1위",
