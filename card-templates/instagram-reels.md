@@ -53,6 +53,33 @@ Reels viewers swipe fast. Every card must land before they swipe away.
           • • • • •   dot indicators (absolute, bottom-8)
 ```
 
+### Promo card (always last slide)
+
+```
+┌─────────────────────────────────────┐  100vw × 100svh
+│  snap slide (bg: black)             │
+│                                     │
+│  ┌───────────────────────────────┐  │
+│  │  <div ref=cardRef>            │  │  width: 100%, aspect-ratio: 4/5
+│  │  green content gradient       │  │  ← captured by html-to-image
+│  │                               │  │
+│  │  ┌─────────────────────────┐  │  │
+│  │  │                         │  │  │
+│  │  │  (vertically centered)  │  │  │
+│  │  │  주린이를 위한 미국증시  │  │  │  clamp(1.4rem–2rem) font-bold, dim
+│  │  │  nextinvest.org         │  │  │  clamp(2.4rem–3.6rem) font-black
+│  │  │                         │  │  │
+│  │  └─────────────────────────┘  │  │
+│  └───────────────────────────────┘  │  ← cardRef ends here
+│                                     │
+│  [ ↓ Save to Photos ]               │  button NOT inside cardRef
+└─────────────────────────────────────┘
+```
+
+- Fixed branding slide; **always appended automatically** after all content cards — no data field needed.
+- Background: green content card gradient `#0f2027→#1a3a2a→#0d1f16` (same as positive content cards).
+- No accent color, no headline, no bullets — brand only.
+
 ### Content card (slides 1–N)
 
 ```

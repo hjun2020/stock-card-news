@@ -108,13 +108,13 @@ function PromoCard() {
       <div
         ref={cardRef}
         className="w-full flex flex-col"
-        style={{ aspectRatio: "4/5", background: "linear-gradient(160deg, #0a0a0a 0%, #111111 50%, #080808 100%)" }}
+        style={{ aspectRatio: "4/5", background: "linear-gradient(160deg, #0f2027 0%, #1a3a2a 50%, #0d1f16 100%)" }}
       >
         <div className="flex flex-col flex-1 items-center justify-center gap-3">
-          <p className="text-xs" style={{ color: "rgba(255,255,255,0.35)" }}>
+          <p className="font-bold" style={{ color: "rgba(255,255,255,0.45)", fontSize: "clamp(1.4rem, 5vw, 2rem)" }}>
             주린이를 위한 미국증시
           </p>
-          <p className="text-xl font-bold" style={{ color: "rgba(255,255,255,0.7)" }}>
+          <p className="font-black" style={{ color: "rgba(255,255,255,0.85)", fontSize: "clamp(2.4rem, 9vw, 3.6rem)" }}>
             nextinvest.org
           </p>
         </div>
