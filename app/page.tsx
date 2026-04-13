@@ -13,6 +13,14 @@ interface Chain {
 
 const chains: Chain[] = [
   {
+    slug: "apr-13-women-reels",
+    date: "2026년 4월 13일",
+    label: "60대 여성 수익률 1위",
+    description: "단순한 원칙이 복잡한 기술을 이겼다 — 행동 차이가 수익률을 갈랐다",
+    cardCount: 11,
+    isPositive: true,
+  },
+  {
     slug: "apr-13-women",
     date: "2026년 4월 13일",
     label: "60대 여성 수익률 1위",
