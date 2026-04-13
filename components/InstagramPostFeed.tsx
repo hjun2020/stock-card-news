@@ -57,11 +57,12 @@ export default function InstagramPostFeed({ cards }: { cards: NewsCard[] }) {
         {cards.map((card) => (
           <ReelsCard key={card.id} card={card} />
         ))}
+        <PromoCard />
       </div>
 
       {/* Dot indicators */}
       <div className="absolute bottom-8 left-0 right-0 flex justify-center gap-2 pointer-events-none">
-        {cards.map((_, i) => (
+        {[...cards, null].map((_, i) => (
           <div
             key={i}
             className="w-1.5 h-1.5 rounded-full transition-all duration-300"
@@ -72,6 +73,80 @@ export default function InstagramPostFeed({ cards }: { cards: NewsCard[] }) {
           />
         ))}
       </div>
+    </div>
+  );
+}
+
+function PromoCard() {
+  const cardRef = useRef<HTMLDivElement>(null);
+  const [saving, setSaving] = useState(false);
+
+  const handleSave = async () => {
+    if (!cardRef.current || saving) return;
+    setSaving(true);
+    try {
+      const pixelRatio = 1080 / cardRef.current.offsetWidth;
+      const dataUrl = await toPng(cardRef.current, { pixelRatio });
+      const blob = await (await fetch(dataUrl)).blob();
+      const file = new File([blob], "promo.png", { type: "image/png" });
+
+      if (navigator.canShare?.({ files: [file] })) {
+        await navigator.share({ files: [file], title: "nextinvest" });
+      } else {
+        const a = document.createElement("a");
+        a.href = dataUrl;
+        a.download = "promo.png";
+        a.click();
+      }
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  return (
+    <div className="shrink-0 w-screen h-svh snap-center snap-always flex flex-col items-center justify-center gap-4 bg-black px-0">
+      <div
+        ref={cardRef}
+        className="w-full flex flex-col"
+        style={{ aspectRatio: "4/5", background: "linear-gradient(160deg, #0a0a0a 0%, #111111 50%, #080808 100%)" }}
+      >
+        <div className="flex flex-col flex-1 items-center justify-center gap-3">
+          <p className="text-xs" style={{ color: "rgba(255,255,255,0.35)" }}>
+            주린이를 위한 미국증시
+          </p>
+          <p className="text-xl font-bold" style={{ color: "rgba(255,255,255,0.7)" }}>
+            nextinvest.org
+          </p>
+        </div>
+      </div>
+
+      <button
+        onClick={handleSave}
+        disabled={saving}
+        className="w-full flex items-center justify-center gap-2 rounded-2xl py-3.5 px-7 transition-opacity active:opacity-60"
+        style={{
+          background: "rgba(255,255,255,0.06)",
+          border: "1px solid rgba(255,255,255,0.12)",
+          color: "rgba(255,255,255,0.5)",
+          opacity: saving ? 0.5 : 1,
+          maxWidth: "100vw",
+        }}
+      >
+        {saving ? (
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="animate-spin">
+            <path d="M21 12a9 9 0 1 1-6.219-8.56" />
+          </svg>
+        ) : (
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+            <polyline points="7 10 12 15 17 10" />
+            <line x1="12" y1="15" x2="12" y2="3" />
+          </svg>
+        )}
+        <span className="text-sm font-semibold">
+          {saving ? "Saving…" : "Save to Photos"}
+        </span>
+      </button>
     </div>
   );
 }
