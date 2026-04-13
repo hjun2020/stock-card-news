@@ -9,7 +9,6 @@ import { toPng } from "html-to-image";
 export interface ReelsNewsCard {
   id: number;
   headline: string;    // up to 3 lines; lead with full company name, then the message
-  bullets: [string, string]; // exactly 2, each ≤ 20자
   isPositive: boolean;
   date: string;
   theme: string;       // short label in header (≤ 12자)
@@ -297,30 +296,14 @@ function ReelsCard({ card }: { card: ReelsNewsCard }) {
             </span>
           </div>
 
-          {/* Center block: headline */}
-          <div className="flex flex-col justify-center flex-1 gap-4">
-            {/* Headline — dominant element */}
+          {/* Center block: headline only */}
+          <div className="flex flex-col justify-center flex-1">
             <h2
               className="font-bold leading-tight"
-              style={{ color: "rgba(255,255,255,0.97)", fontSize: "clamp(2.1rem, 8vw, 3.2rem)", whiteSpace: "pre-line" }}
+              style={{ color: "rgba(255,255,255,0.97)", fontSize: "clamp(2.4rem, 9vw, 3.6rem)", whiteSpace: "pre-line" }}
             >
               {card.headline}
             </h2>
-
-            {/* Divider */}
-            <div className="w-8 h-0.5 rounded-full" style={{ background: accentColor }} />
-
-            {/* 2 bullets */}
-            <div className="flex flex-col gap-3">
-              {card.bullets.map((b, i) => (
-                <div key={i} className="flex items-center gap-3">
-                  <div className="w-1 h-1 rounded-full shrink-0" style={{ background: accentColor }} />
-                  <p className="text-xl font-medium" style={{ color: "rgba(255,255,255,0.88)" }}>
-                    {b}
-                  </p>
-                </div>
-              ))}
-            </div>
           </div>
 
           {/* Footer */}
