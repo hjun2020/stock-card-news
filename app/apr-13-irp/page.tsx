@@ -2,8 +2,7 @@
 import InstagramReelsFeed, { ReelsNewsCard, ReelsTitleCard } from "@/components/InstagramReelsFeed";
 
 const titleCard: ReelsTitleCard = {
-  title: "IRP vs 연금저축 완전 비교",
-  subtitle: "IRP, 연금저축\n둘 다 세액공제\n뭐가 다를까요? ↓",
+  title: "IRP, 연금저축\n둘 다 세액공제\n뭐가 다를까요? ↓",
   date: "4월 13일",
   isPositive: true,
 };

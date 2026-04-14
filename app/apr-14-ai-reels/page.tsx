@@ -2,8 +2,7 @@
 import InstagramReelsFeed, { ReelsNewsCard, ReelsTitleCard } from "@/components/InstagramReelsFeed";
 
 const titleCard: ReelsTitleCard = {
-  title: "4월 14일 AI 대표주 주간 총정리",
-  subtitle: "9종목이\n동시에\n두 자릿수 상승",
+  title: "4월 14일 AI 대표주\n9종목이\n동시에\n두 자릿수 상승",
   date: "4월 14일",
   isPositive: true,
 };

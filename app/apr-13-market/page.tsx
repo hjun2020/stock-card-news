@@ -2,8 +2,7 @@
 import InstagramReelsFeed, { ReelsNewsCard, ReelsTitleCard } from "@/components/InstagramReelsFeed";
 
 const titleCard: ReelsTitleCard = {
-  title: "4월 13일 미국증시 시황 총정리",
-  subtitle: "악재 속에서도\nAI·기술주에\n다시 베팅하다",
+  title: "4월 13일 미국증시\n악재 속에서도\nAI·기술주에\n다시 베팅하다",
   date: "4월 13일",
   isPositive: true,
 };

@@ -16,8 +16,7 @@ export interface ReelsNewsCard {
 
 // Title card — always slide 0; eye-catching cover before the content cards.
 export interface ReelsTitleCard {
-  title: string;       // 1-line factual descriptor — date + what's inside (≤ 24자)
-  subtitle: string;    // hook/teaser, up to 3 lines; punchy and intriguing
+  title: string;       // hook/teaser, up to 4 lines; punchy and intriguing (displayed large)
   date: string;
   isPositive: boolean;
 }
@@ -165,8 +164,8 @@ function TitleCard({ card }: { card: ReelsTitleCard }) {
           </div>
 
           {/* Center block */}
-          <div className="flex flex-col justify-center flex-1 gap-5">
-            {/* Subtitle — the hook (big dramatic text) */}
+          <div className="flex flex-col justify-center flex-1">
+            {/* Title — big dramatic hook */}
             <h1
               className="font-black leading-none"
               style={{
@@ -176,19 +175,8 @@ function TitleCard({ card }: { card: ReelsTitleCard }) {
                 letterSpacing: "-0.02em",
               }}
             >
-              {card.subtitle}
-            </h1>
-
-            {/* Accent rule */}
-            <div style={{ width: "2.5rem", height: "3px", borderRadius: "9999px", background: accentColor }} />
-
-            {/* Title — factual descriptor */}
-            <p
-              className="text-xl font-medium leading-snug"
-              style={{ color: "rgba(255,255,255,0.55)" }}
-            >
               {card.title}
-            </p>
+            </h1>
           </div>
 
           {/* Bottom: swipe CTA + brand */}

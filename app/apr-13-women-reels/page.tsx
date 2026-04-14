@@ -2,8 +2,7 @@
 import InstagramReelsFeed, { ReelsNewsCard, ReelsTitleCard } from "@/components/InstagramReelsFeed";
 
 const titleCard: ReelsTitleCard = {
-  title: "4월 13일 60대 여성 수익률 1위",
-  subtitle: "주식 수익률 1위\n60대 여성입니다\n이유가 있습니다 ↓",
+  title: "주식 수익률 1위\n60대 여성입니다\n이유가 있습니다 ↓",
   date: "4월 13일",
   isPositive: true,
 };

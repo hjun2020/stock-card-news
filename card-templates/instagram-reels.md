@@ -37,12 +37,8 @@ Reels viewers swipe fast. Every card must land before they swipe away.
 │  │  │                         │  │  │
 │  │  │  radial glow (bg)       │  │  │  subtle accent glow behind title
 │  │  │                         │  │  │
-│  │  │  Subtitle  clamp(2.8rem │  │  │  hook; font-black, letter-spacing tight
-│  │  │           –4.2rem)      │  │  │  2–3 lines; creates curiosity/tension
-│  │  │                         │  │  │
-│  │  │  ─── accent rule ───    │  │  │  2.5rem wide, 3px tall
-│  │  │                         │  │  │
-│  │  │  Title  text-xl         │  │  │  1 line; what's inside (≤ 24자)
+│  │  │  Title  clamp(2.8rem   │  │  │  hook; font-black, letter-spacing tight
+│  │  │         –4.2rem)        │  │  │  up to 4 lines; creates curiosity/tension
 │  │  │                         │  │  │
 │  │  │ nextinvest.org  스와이프 →│  │  │  footer — brand left, swipe CTA right
 │  │  └─────────────────────────┘  │  │
@@ -113,8 +109,7 @@ Reels viewers swipe fast. Every card must land before they swipe away.
 
 ```ts
 interface ReelsTitleCard {
-  title: string;       // 1 line: factual descriptor — date + what's inside (≤ 24자)
-  subtitle: string;    // hook/teaser, 2–3 lines; punchy, creates curiosity or tension
+  title: string;       // hook/teaser, up to 4 lines; punchy, creates curiosity or tension (displayed large)
   date: string;
   isPositive: boolean;
 }
@@ -138,10 +133,9 @@ interface ReelsNewsCard {
 
 ### Title card
 
-**A first-time viewer must be able to tell, within 2 seconds, exactly what this Reels is about.** The `title` carries the clarity; the `subtitle` provides the emotional hook that makes them stay.
+**The title is the only text on the cover — it must hook the viewer in 2 seconds.**
 
-- **title**: One line that names what's inside, not what happened. **Always name the subject explicitly** — a viewer who has never seen this account must know what they're getting a recap of. Ask yourself: "총정리 for WHAT?" If the answer isn't in the title, rewrite it. Bad: `"4월 13일 주간 섹터 총정리"` (섹터 총정리 — of what market?). Good: `"4월 13일 미국증시 섹터별 총정리"`. Good: `"4월 10일 미국 시장 완전 정리"`.
-- **subtitle**: 2–3 short lines. Write like a hook — make the viewer *have to* swipe. Use contrast, tension, or surprise. Good: `"물가 쇼크\n비트코인만\n올랐다"`. Bad: `"4월 10일 미국 시장 요약"` (no tension).
+- **title**: Up to 4 lines. **For daily/weekly/monthly news cards, line 1 must be the date + theme** (e.g. `"4월 14일 미국증시"`, `"4월 14일 AI 대표주"`). Lines 2–4 are the punchy hook — use contrast, tension, or surprise to make the viewer *have to* swipe. Good: `"4월 14일 미국증시\n유가 진정\n성장·부동산에\n돈이 몰렸다"`. Bad: `"유가 진정\n성장·부동산에\n돈이 몰렸다"` (missing context). Displayed at `clamp(2.8rem, 11vw, 4.2rem)` font-black.
 
 ### Content cards
 - **Headline only** — no bullets, no dividers. The headline is the entire message.

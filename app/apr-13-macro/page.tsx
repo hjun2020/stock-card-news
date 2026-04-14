@@ -2,8 +2,7 @@
 import InstagramReelsFeed, { ReelsNewsCard, ReelsTitleCard } from "@/components/InstagramReelsFeed";
 
 const titleCard: ReelsTitleCard = {
-  title: "4월 13일 거시경제 시장 총정리",
-  subtitle: "유가 급등·금리 상승\n그런데도\n주식은 올랐다",
+  title: "4월 13일 거시경제\n유가 급등·금리 상승\n그런데도\n주식은 올랐다",
   date: "4월 13일",
   isPositive: true,
 };
