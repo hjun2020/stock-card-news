@@ -4,6 +4,22 @@ import { useRef, useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { toPng } from "html-to-image";
 
+function renderHeadline(text: string) {
+  return text.split("\n").map((line, lineIdx) => {
+    const parts = line.split(/(▲|▼)/);
+    return (
+      <span key={lineIdx} style={{ display: "block" }}>
+        {parts.map((part, i) =>
+          part === "▲" ? <span key={i} style={{ color: "#22c55e" }}>▲</span> :
+          part === "▼" ? <span key={i} style={{ color: "#ef4444" }}>▼</span> :
+          <span key={i}>{part}</span>
+        )}
+      </span>
+    );
+  });
+}
+
+
 // Reels cards are built for a 5-second read:
 // one punchy headline + at most 2 short bullets.
 export interface ReelsNewsCard {
@@ -356,9 +372,9 @@ function ReelsCard({ card }: { card: ReelsNewsCard }) {
           <div className="flex flex-col justify-center flex-1">
             <h2
               className="font-bold leading-tight"
-              style={{ color: "rgba(255,255,255,0.97)", fontSize: "clamp(2.4rem, 9vw, 3.6rem)", whiteSpace: "pre-line" }}
+              style={{ color: "rgba(255,255,255,0.97)", fontSize: "clamp(2.4rem, 9vw, 3.6rem)" }}
             >
-              {card.headline}
+              {renderHeadline(card.headline)}
             </h2>
           </div>
 

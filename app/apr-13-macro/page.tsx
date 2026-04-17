@@ -17,7 +17,7 @@ const cards: ReelsNewsCard[] = [
   },
   {
     id: 2,
-    headline: "유가 ETF(USO)\n하루 +2.83%\n90일 누적 +74%",
+    headline: "유가 ETF(USO)\n하루 ▲2.83%\n90일 누적 ▲74%",
     isPositive: true,
     date: "4월 13일",
     theme: "유가",
@@ -31,14 +31,14 @@ const cards: ReelsNewsCard[] = [
   },
   {
     id: 4,
-    headline: "SPY +0.97%  QQQ +1.03%\n지정학 악재를 딛고\n실적 기대가 이겼다",
+    headline: "SPY ▲0.97%  QQQ ▲1.03%\n지정학 악재를 딛고\n실적 기대가 이겼다",
     isPositive: true,
     date: "4월 13일",
     theme: "미국 증시",
   },
   {
     id: 5,
-    headline: "비트코인 +3.35%\n이더리움 +2.73%\n공포 모드는 아직 아니다",
+    headline: "비트코인 ▲3.35%\n이더리움 ▲2.73%\n공포 모드는 아직 아니다",
     isPositive: true,
     date: "4월 13일",
     theme: "크립토",

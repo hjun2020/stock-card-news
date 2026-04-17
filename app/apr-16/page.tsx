@@ -17,7 +17,7 @@ const cards: ReelsNewsCard[] = [
   },
   {
     id: 2,
-    headline: "앨버말\n리튬 공급 부족 기대에\n하루 만에 +16%",
+    headline: "앨버말\n리튬 공급 부족 기대에\n하루 만에 ▲16%",
     isPositive: true,
     date: "4월 16일",
     theme: "기초소재",
@@ -31,14 +31,14 @@ const cards: ReelsNewsCard[] = [
   },
   {
     id: 4,
-    headline: "넷플릭스\n성장 둔화 우려 하나에\n-8% 추락",
+    headline: "넷플릭스\n성장 둔화 우려 하나에\n▼8% 추락",
     isPositive: false,
     date: "4월 16일",
     theme: "커뮤니케이션",
   },
   {
     id: 5,
-    headline: "찰스 슈왑\n실적·마진 실망에\n-8% 급락",
+    headline: "찰스 슈왑\n실적·마진 실망에\n▼8% 급락",
     isPositive: false,
     date: "4월 16일",
     theme: "금융",

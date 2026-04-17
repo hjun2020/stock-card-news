@@ -10,7 +10,7 @@ const titleCard: ReelsTitleCard = {
 const cards: ReelsNewsCard[] = [
   {
     id: 1,
-    headline: "10년물 금리 4.29%\n유가 +2.65% 급등\n그래도 증시는 최고치",
+    headline: "10년물 금리 4.29%\n유가 ▲2.65% 급등\n그래도 증시는 최고치",
     isPositive: true,
     date: "4월 16일",
     theme: "오늘 거시",
@@ -38,7 +38,7 @@ const cards: ReelsNewsCard[] = [
   },
   {
     id: 5,
-    headline: "비트코인 7만 5천 달러\n90일 -21% 조정 후\n단기 숨 고르기 중",
+    headline: "비트코인 7만 5천 달러\n90일 ▼21% 조정 후\n단기 숨 고르기 중",
     isPositive: true,
     date: "4월 16일",
     theme: "크립토",

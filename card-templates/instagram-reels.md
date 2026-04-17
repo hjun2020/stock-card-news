@@ -141,7 +141,8 @@ interface ReelsNewsCard {
 - **Headline only** — no bullets, no dividers. The headline is the entire message.
 - **Headline**: Up to 4 lines. For company-specific cards, **lead with the full company name on the first line**, then deliver the message on lines 2–4. Max ~35자/줄. Example: `"인튜잇\n실적은 좋았는데\n주가는 반토막"`. For thematic/summary cards, 2–3 lines is fine.
 - **No ticker field** — the company name lives in the headline. No badge, no pill.
-- **No tickers or symbols anywhere** — always write the full company name or plain Korean. Bad: `"INTC 주간 +25%"`. Good: `"인텔 주간 +25%"`.
+- **No tickers or symbols anywhere** — always write the full company name or plain Korean. Bad: `"INTC 주간 25%"`. Good: `"인텔 주간 ▲25%"`.
+- **Use `▲`/`▼` instead of `+`/`-` for price/percentage changes** — `▲` renders green, `▼` renders red via CSS. Never use `+` or `-` as directional signs. Example: `"유가 ▲2.65% 급등"`, `"넷플릭스 ▼8% 추락"`. Plain `+` is only acceptable as "and" (e.g. `"달러 약세 + 휴전 기대"`).
 - **Tone**: Punchy and direct. Cut every word that doesn't add meaning.
 
 ---
