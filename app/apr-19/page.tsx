@@ -2,7 +2,7 @@
 import InstagramReelsFeed, { ReelsNewsCard, ReelsTitleCard } from "@/components/InstagramReelsFeed";
 
 const titleCard: ReelsTitleCard = {
-  title: "4월 19일 미국증시\nAI·반도체 + 빅뱅크\n동시에 52주 신고가\n두 엔진이 켜졌다",
+  title: "4월 19일 52주\n신고가 종목들\nAI·반도체 + 빅뱅크\n두 엔진이 켜졌다",
   date: "4월 19일",
   isPositive: true,
 };
