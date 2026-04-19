@@ -13,6 +13,14 @@ interface Chain {
 
 const chains: Chain[] = [
   {
+    slug: "apr-20",
+    date: "2026년 4월 20일",
+    label: "4월 셋째 주 시황",
+    description: "AI·반도체 랠리 재가동, 에너지 alone 역주행 — 기술 ▲9.88% vs 에너지 ▼6.86%",
+    cardCount: 6,
+    isPositive: true,
+  },
+  {
     slug: "apr-19",
     date: "2026년 4월 19일",
     label: "4월 19일 시황 총정리",
