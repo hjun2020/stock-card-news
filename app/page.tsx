@@ -13,6 +13,14 @@ interface Chain {
 
 const chains: Chain[] = [
   {
+    slug: "apr-19",
+    date: "2026년 4월 19일",
+    label: "4월 19일 시황 총정리",
+    description: "AI·반도체 + 빅뱅크 동시 52주 신고가 — 마벨 ▲50%, 아리스타·ADI·시티그룹 리레이팅",
+    cardCount: 6,
+    isPositive: true,
+  },
+  {
     slug: "apr-18-macro",
     date: "2026년 4월 18일",
     label: "4월 18일 주간 거시경제",
