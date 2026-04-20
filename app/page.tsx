@@ -13,6 +13,14 @@ interface Chain {
 
 const chains: Chain[] = [
   {
+    slug: "apr-21-macro",
+    date: "2026년 4월 21일",
+    label: "4월 20일 거시경제",
+    description: "호르무즈발 유가 ▲4.6% 급등, 주식 숨고르기, 비트코인·이더리움 ▲3%대 홀로 강세",
+    cardCount: 6,
+    isPositive: true,
+  },
+  {
     slug: "apr-21",
     date: "2026년 4월 21일",
     label: "4월 20일 시황 총정리",
